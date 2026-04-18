@@ -12,7 +12,7 @@ public enum E_CatType
 
 public class Cat : MonoBehaviour
 {
-    private E_CatItem _currentCatItem;
+    private CatRequestDefinition _currentRequest;
     private Coroutine _hideCoroutine;
     private bool _isResolved;
 
@@ -28,6 +28,7 @@ public class Cat : MonoBehaviour
         var listener = EventTriggerListener.Get(gameObject);
         listener.OnDropEvent -= OnDrop;
         StopHideCoroutine();
+        _currentRequest = null;
         _isResolved = false;
     }
 
@@ -37,12 +38,12 @@ public class Cat : MonoBehaviour
         if (view == null || _isResolved || !view.TryConsumeDrag(out var catItem))
             return;
         Debug.Log($"拖动{catItem}到{go.name}");
-        Resolve(catItem == _currentCatItem);
+        Resolve(_currentRequest != null && catItem == _currentRequest.RequiredItem);
     }
 
-    public void Show(E_CatItem catItem, float duration)
+    public void Show(CatRequestDefinition request, float duration)
     {
-        _currentCatItem = catItem;
+        _currentRequest = request;
         _isResolved = false;
         StopHideCoroutine();
         _hideCoroutine = StartCoroutine(HideAfter(duration));

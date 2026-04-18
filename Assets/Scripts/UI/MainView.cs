@@ -7,13 +7,6 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public enum E_CatItem
-{
-    Food,
-    Petting,
-    Toy,
-}
-
 public class MainView : BaseView
 {
     [SerializeField] private List<GameObject> _eventTriggerList;

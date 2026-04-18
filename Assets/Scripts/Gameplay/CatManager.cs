@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -47,7 +46,14 @@ public class CatManager : Singleton<CatManager>
             return false;
         }
 
-        cat.Show((E_CatItem)Random.Range(0, Enum.GetValues(typeof(E_CatItem)).Length), catDuration);
+        var request = GameSettings.GameSetting.GetRandomNormalCatRequest();
+        if (request == null)
+        {
+            child.gameObject.SetActive(false);
+            return false;
+        }
+
+        cat.Show(request, catDuration);
         return true;
     }
 }

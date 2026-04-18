@@ -35,6 +35,8 @@ public class GameSetting : ScriptableObject
 
     [Header("刷猫配置")] public List<CatSpawnIntervalConfig> CatSpawnIntervals = new();
 
+    [Header("Cat Request Config")] public List<CatRequestDefinition> NormalCatRequests = new();
+
     private CatSpawnIntervalConfig GetCatSpawnConfig(int remainingTime)
     {
         if (CatSpawnIntervals == null)
@@ -74,6 +76,16 @@ public class GameSetting : ScriptableObject
         }
 
         return Mathf.Max(0.1f, CatAppearanceDuration);
+    }
+
+    public CatRequestDefinition GetRandomNormalCatRequest()
+    {
+        if (NormalCatRequests == null || NormalCatRequests.Count == 0)
+        {
+            return null;
+        }
+
+        return NormalCatRequests[UnityEngine.Random.Range(0, NormalCatRequests.Count)];
     }
 }
 

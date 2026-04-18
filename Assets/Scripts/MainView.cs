@@ -19,12 +19,18 @@ public class MainView : BaseView
     [SerializeField] private List<GameObject> _eventTriggerList;
     [SerializeField] private List<GameObject> _itemList;
     [SerializeField] private TMP_Text _timeText;
+    [SerializeField] private TMP_Text _successText;
+    [SerializeField] private TMP_Text _failText;
 
     public E_CatItem CurCatItem { get; private set; }
     public bool IsDragging { get; private set; }
     private GameObject _curDragItem;
 
     private Coroutine _countDownCoroutine;
+    private Coroutine _showCatCoroutine;
+
+    private int _successCount;
+    private int _failCount;
 
     private void Awake()
     {
@@ -78,8 +84,46 @@ public class MainView : BaseView
         {
             StopCoroutine(_countDownCoroutine);
         }
-
+        _successCount = 0;
+        _failCount = 0;
+        _successText.SetText(_successCount.ToString());
+        _failText.SetText(_failCount.ToString());
         _countDownCoroutine = StartCoroutine(CountDown());
+        StopShowCat();
+        ShowCat();
+    }
+
+    public void ShowCat()
+    {
+        CatManager.Instance.ShowCat();
+        StopShowCat();
+        _showCatCoroutine = StartCoroutine(ShowCatTime());
+    }
+
+    public void StopShowCat()
+    {
+        if (_showCatCoroutine != null)
+        {
+            StopCoroutine(_showCatCoroutine);
+        }
+    }
+
+    private IEnumerator ShowCatTime()
+    {
+        yield return new WaitForSeconds(Setting.CatAppearanceDuration);
+        GameEvents.Instance.OnCatInteraction?.Invoke(false);
+    }
+
+    public void UpdateSuccess()
+    {
+        _successCount++;
+        _successText.SetText(_successCount.ToString());
+    }
+
+    public void UpdateFail()
+    {
+        _failCount++;
+        _failText.SetText(_failCount.ToString());
     }
 
     private IEnumerator CountDown()
@@ -95,6 +139,7 @@ public class MainView : BaseView
         _timeText.SetText("0");
     }
 
+
     private void OnDestroy()
     {
         Clear();
@@ -103,6 +148,11 @@ public class MainView : BaseView
         {
             StopCoroutine(_countDownCoroutine);
             _countDownCoroutine = null;
+        }
+
+        if (_showCatCoroutine != null)
+        {
+            StopCoroutine(_showCatCoroutine);
         }
     }
 }

@@ -1,41 +1,53 @@
 using System;
-using System.Linq;
+using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
 public class CatManager : Singleton<CatManager>
 {
-    private int _lastIndex;
     private Transform _spawn;
 
     public CatManager()
     {
         _spawn = GameObject.Find("Spawn").transform;
-        _lastIndex = -1;
+        HideAllCats();
+    }
+
+    public void HideAllCats()
+    {
         for (var i = 0; i < _spawn.childCount; i++)
         {
             _spawn.GetChild(i).gameObject.SetActive(false);
         }
     }
 
-    public void ShowCat()
+    public bool ShowHiddenCat(float catDuration)
     {
+        var hiddenCats = new List<Transform>();
         for (var i = 0; i < _spawn.childCount; i++)
         {
-            _spawn.GetChild(i).gameObject.SetActive(false);
+            var hides = _spawn.GetChild(i);
+            if (!hides.gameObject.activeSelf)
+            {
+                hiddenCats.Add(hides);
+            }
         }
 
-        var list = Enumerable.Range(0, _spawn.childCount).ToList();
-        if (_lastIndex != -1)
+        if (hiddenCats.Count == 0)
         {
-            list.Remove(_lastIndex);
+            return false;
         }
 
-        var index = list[Random.Range(0, list.Count)];
-        _lastIndex = index;
-        var child = _spawn.GetChild(index);
+        var child = hiddenCats[Random.Range(0, hiddenCats.Count)];
         child.gameObject.SetActive(true);
-        child.GetComponentInChildren<Cat>(true)
-            .SetCurCatItem((E_CatItem)Random.Range(0, Enum.GetValues(typeof(E_CatItem)).Length));
+        var cat = child.GetComponentInChildren<Cat>(true);
+        if (cat == null)
+        {
+            child.gameObject.SetActive(false);
+            return false;
+        }
+
+        cat.Show((E_CatItem)Random.Range(0, Enum.GetValues(typeof(E_CatItem)).Length), catDuration);
+        return true;
     }
 }

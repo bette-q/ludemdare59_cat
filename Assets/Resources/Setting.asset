@@ -13,3 +13,16 @@ MonoBehaviour:
   m_Name: Setting
   m_EditorClassIdentifier: 
   CountDownTime: 100
+  CatAppearanceDuration: 5
+  DefaultCatSpawnInterval: 5
+  CatSpawnIntervals:
+  - MaxRemainingTime: 100
+    MinRemainingTime: 80
+    MinInterval: 5
+    MaxInterval: 6
+    CatAppearanceDuration: 5
+  - MaxRemainingTime: 80
+    MinRemainingTime: 60
+    MinInterval: 4
+    MaxInterval: 5
+    CatAppearanceDuration: 4

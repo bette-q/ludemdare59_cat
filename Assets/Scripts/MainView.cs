@@ -27,10 +27,12 @@ public class MainView : BaseView
     private GameObject _curDragItem;
 
     private Coroutine _countDownCoroutine;
-    private Coroutine _showCatCoroutine;
+    private Coroutine _spawnCatCoroutine;
 
     private int _successCount;
     private int _failCount;
+    private int _remainingTime;
+    private bool _isGameRunning;
 
     private void Awake()
     {
@@ -46,6 +48,7 @@ public class MainView : BaseView
 
     private void OnDragBegin(E_CatItem itemType, GameObject go, PointerEventData ev)
     {
+        Clear();
         IsDragging = true;
         CurCatItem = itemType;
         _curDragItem = Instantiate(_itemList[(int)CurCatItem], ev.position, Quaternion.identity);
@@ -70,6 +73,7 @@ public class MainView : BaseView
         if (_curDragItem != null)
         {
             Destroy(_curDragItem);
+            _curDragItem = null;
         }
     }
 
@@ -80,38 +84,20 @@ public class MainView : BaseView
 
     private void GameStart()
     {
-        if (_countDownCoroutine != null)
-        {
-            StopCoroutine(_countDownCoroutine);
-        }
+        StopCountDown();
+        StopSpawnCat();
+        ClearDragState();
+        CatManager.Instance.HideAllCats();
         _successCount = 0;
         _failCount = 0;
+        _remainingTime = Setting.CountDownTime;
+        _isGameRunning = true;
         _successText.SetText(_successCount.ToString());
         _failText.SetText(_failCount.ToString());
+        _timeText.SetText(_remainingTime.ToString());
+        SpawnCatOnce();
         _countDownCoroutine = StartCoroutine(CountDown());
-        StopShowCat();
-        ShowCat();
-    }
-
-    public void ShowCat()
-    {
-        CatManager.Instance.ShowCat();
-        StopShowCat();
-        _showCatCoroutine = StartCoroutine(ShowCatTime());
-    }
-
-    public void StopShowCat()
-    {
-        if (_showCatCoroutine != null)
-        {
-            StopCoroutine(_showCatCoroutine);
-        }
-    }
-
-    private IEnumerator ShowCatTime()
-    {
-        yield return new WaitForSeconds(Setting.CatAppearanceDuration);
-        GameEvents.Instance.OnCatInteraction?.Invoke(false);
+        _spawnCatCoroutine = StartCoroutine(SpawnCat());
     }
 
     public void UpdateSuccess()
@@ -128,31 +114,89 @@ public class MainView : BaseView
 
     private IEnumerator CountDown()
     {
-        var time = Setting.CountDownTime;
+        var time = _remainingTime;
         while (time > 0)
         {
+            _remainingTime = time;
             _timeText.SetText(time.ToString());
             yield return new WaitForSeconds(1f);
             time--;
         }
 
+        _remainingTime = 0;
+        _isGameRunning = false;
         _timeText.SetText("0");
+        StopSpawnCat();
+        ClearDragState();
+        CatManager.Instance.HideAllCats();
+    }
+
+    private IEnumerator SpawnCat()
+    {
+        while (_isGameRunning)
+        {
+            var waitTime = Setting.GetCatSpawnInterval(_remainingTime);
+            yield return new WaitForSeconds(waitTime);
+            if (!_isGameRunning || _remainingTime <= 0)
+            {
+                yield break;
+            }
+
+            SpawnCatOnce();
+        }
+    }
+
+    private void SpawnCatOnce()
+    {
+        CatManager.Instance.ShowHiddenCat(Setting.GetCatAppearanceDuration(_remainingTime));
+    }
+
+    public bool TryConsumeDrag(out E_CatItem catItem)
+    {
+        catItem = CurCatItem;
+        if (!IsDragging)
+        {
+            return false;
+        }
+
+        IsDragging = false;
+        Clear();
+        return true;
+    }
+
+    private void ClearDragState()
+    {
+        IsDragging = false;
+        Clear();
+    }
+
+    private void StopCountDown()
+    {
+        if (_countDownCoroutine == null)
+        {
+            return;
+        }
+
+        StopCoroutine(_countDownCoroutine);
+        _countDownCoroutine = null;
+    }
+
+    private void StopSpawnCat()
+    {
+        if (_spawnCatCoroutine == null)
+        {
+            return;
+        }
+
+        StopCoroutine(_spawnCatCoroutine);
+        _spawnCatCoroutine = null;
     }
 
 
     private void OnDestroy()
     {
-        Clear();
-
-        if (_countDownCoroutine != null)
-        {
-            StopCoroutine(_countDownCoroutine);
-            _countDownCoroutine = null;
-        }
-
-        if (_showCatCoroutine != null)
-        {
-            StopCoroutine(_showCatCoroutine);
-        }
+        ClearDragState();
+        StopCountDown();
+        StopSpawnCat();
     }
 }

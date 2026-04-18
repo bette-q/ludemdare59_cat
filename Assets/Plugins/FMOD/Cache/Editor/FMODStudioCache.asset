@@ -1,0 +1,457 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-8098859767060634524
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/CatSFX/Attention1
+  m_EditorClassIdentifier: 
+  Path: event:/CatSFX/Attention1
+  Guid:
+    Data1: 1121443739
+    Data2: 1255392427
+    Data3: -732302432
+    Data4: -1921660961
+  Banks:
+  - {fileID: 8855800087934206249}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 875
+--- !u!114 &-7682256767937446945
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/CatSFX/SFX/Faliure
+  m_EditorClassIdentifier: 
+  Path: event:/CatSFX/SFX/Faliure
+  Guid:
+    Data1: -596633654
+    Data2: 1109934010
+    Data3: 95285681
+    Data4: -415049099
+  Banks:
+  - {fileID: 8855800087934206249}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 7792
+--- !u!114 &-7543907270248871213
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/CatSFX/Attention2
+  m_EditorClassIdentifier: 
+  Path: event:/CatSFX/Attention2
+  Guid:
+    Data1: -1004684953
+    Data2: 1114134928
+    Data3: 124660885
+    Data4: -833398910
+  Banks:
+  - {fileID: 8855800087934206249}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 750
+--- !u!114 &-6904364597182930712
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/CatSFX/SFX/Click
+  m_EditorClassIdentifier: 
+  Path: event:/CatSFX/SFX/Click
+  Guid:
+    Data1: 1111229358
+    Data2: 1181197248
+    Data3: -964529233
+    Data4: 1668240553
+  Banks:
+  - {fileID: 8855800087934206249}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 36
+--- !u!114 &-6740671168513778377
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/CatSFX/Toy1
+  m_EditorClassIdentifier: 
+  Path: event:/CatSFX/Toy1
+  Guid:
+    Data1: 192833165
+    Data2: 1195182995
+    Data3: -220683132
+    Data4: 1817604515
+  Banks:
+  - {fileID: 8855800087934206249}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 1875
+--- !u!114 &-5963135556835869867
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Master.strings.bank
+  m_EditorClassIdentifier: 
+  Path: Assets/Plugins/Signal Fmod/Build/Desktop/Master.strings.bank
+  Name: Master.strings
+  StudioPath: bank:/Master.strings
+  lastModified: 639121299573456145
+  FileSizes:
+  - Name: Desktop
+    Value: 1326
+  Exists: 1
+--- !u!114 &-5892774502168498107
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/CatSFX/SFX/Catload
+  m_EditorClassIdentifier: 
+  Path: event:/CatSFX/SFX/Catload
+  Guid:
+    Data1: -1246774318
+    Data2: 1300210677
+    Data3: -833637979
+    Data4: 1972513557
+  Banks:
+  - {fileID: 8855800087934206249}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 166
+--- !u!114 &-90928598921920988
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/CatSFX/Toy2
+  m_EditorClassIdentifier: 
+  Path: event:/CatSFX/Toy2
+  Guid:
+    Data1: -1432822646
+    Data2: 1265763155
+    Data3: -1698702932
+    Data4: 2098205508
+  Banks:
+  - {fileID: 8855800087934206249}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 1875
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d32cf7c32a3ed8347bac48ef5ed56d82, type: 3}
+  m_Name: FMODStudioCache
+  m_EditorClassIdentifier: 
+  EditorBanks:
+  - {fileID: -5963135556835869867}
+  - {fileID: 8855800087934206249}
+  EditorEvents:
+  - {fileID: 5694812195845988080}
+  - {fileID: 59567762769574318}
+  - {fileID: 1945476505929584004}
+  - {fileID: 1756832554647756721}
+  - {fileID: -7543907270248871213}
+  - {fileID: 1605805987149286358}
+  - {fileID: -90928598921920988}
+  - {fileID: -6740671168513778377}
+  - {fileID: -8098859767060634524}
+  - {fileID: -6904364597182930712}
+  - {fileID: 477790828266104876}
+  - {fileID: -7682256767937446945}
+  - {fileID: -5892774502168498107}
+  - {fileID: 5142417074302803451}
+  EditorParameters: []
+  MasterBanks:
+  - {fileID: 8855800087934206249}
+  StringsBanks:
+  - {fileID: -5963135556835869867}
+  cacheTime: 639121299573456145
+  cacheVersion: 131635
+--- !u!114 &59567762769574318
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/CatSFX/SFX/Glassbreak
+  m_EditorClassIdentifier: 
+  Path: event:/CatSFX/SFX/Glassbreak
+  Guid:
+    Data1: 1799099934
+    Data2: 1215361608
+    Data3: -284748638
+    Data4: -1187330752
+  Banks:
+  - {fileID: 8855800087934206249}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 1125
+--- !u!114 &477790828266104876
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/CatSFX/SFX/Explosion
+  m_EditorClassIdentifier: 
+  Path: event:/CatSFX/SFX/Explosion
+  Guid:
+    Data1: 1418384323
+    Data2: 1171667166
+    Data3: 884880570
+    Data4: -2014747149
+  Banks:
+  - {fileID: 8855800087934206249}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 2000
+--- !u!114 &1605805987149286358
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Mx
+  m_EditorClassIdentifier: 
+  Path: event:/Mx
+  Guid:
+    Data1: 1638522751
+    Data2: 1165770083
+    Data3: -988647251
+    Data4: 519941271
+  Banks:
+  - {fileID: 8855800087934206249}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 95889
+--- !u!114 &1756832554647756721
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/CatSFX/SFX/Victory
+  m_EditorClassIdentifier: 
+  Path: event:/CatSFX/SFX/Victory
+  Guid:
+    Data1: -930268594
+    Data2: 1163697183
+    Data3: 2126255802
+    Data4: 1254147189
+  Banks:
+  - {fileID: 8855800087934206249}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 5259
+--- !u!114 &1945476505929584004
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/CatSFX/SFX/Correctmatch
+  m_EditorClassIdentifier: 
+  Path: event:/CatSFX/SFX/Correctmatch
+  Guid:
+    Data1: -288052692
+    Data2: 1183877663
+    Data3: -692117100
+    Data4: -1922373494
+  Banks:
+  - {fileID: 8855800087934206249}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 1250
+--- !u!114 &5142417074302803451
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/CatSFX/Food1
+  m_EditorClassIdentifier: 
+  Path: event:/CatSFX/Food1
+  Guid:
+    Data1: -792353304
+    Data2: 1172855737
+    Data3: 32095880
+    Data4: 617866646
+  Banks:
+  - {fileID: 8855800087934206249}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 1687
+--- !u!114 &5694812195845988080
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/CatSFX/Food2
+  m_EditorClassIdentifier: 
+  Path: event:/CatSFX/Food2
+  Guid:
+    Data1: -1738326008
+    Data2: 1092577335
+    Data3: -441898870
+    Data4: -1638475047
+  Banks:
+  - {fileID: 8855800087934206249}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 1687
+--- !u!114 &8855800087934206249
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Master.bank
+  m_EditorClassIdentifier: 
+  Path: Assets/Plugins/Signal Fmod/Build/Desktop/Master.bank
+  Name: Master
+  StudioPath: bank:/Master
+  lastModified: 639121299573426150
+  FileSizes:
+  - Name: Desktop
+    Value: 1517184
+  Exists: 1

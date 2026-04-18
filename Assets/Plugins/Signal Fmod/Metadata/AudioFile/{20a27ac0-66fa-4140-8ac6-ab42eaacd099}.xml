@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{20a27ac0-66fa-4140-8ac6-ab42eaacd099}">
+		<property name="assetPath">
+			<value>Food 2.wav</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>48</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>1.6875</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{1a9599f9-8b8e-41eb-9031-f7fb9c5e0198}</destination>
+		</relationship>
+	</object>
+</objects>

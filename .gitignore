@@ -100,3 +100,7 @@ InitTestScene*.unity*
 .idea/.idea.ludemdare59_cat/.idea/encodings.xml
 .idea/.idea.ludemdare59_cat/.idea/indexLayout.xml
 .idea/.idea.ludemdare59_cat/.idea/vcs.xml
+
+# fish docs
+/Assets/Docs
+/AGENTS.md

@@ -26,3 +26,9 @@ MonoBehaviour:
     MinInterval: 3
     MaxInterval: 4
     CatAppearanceDuration: 4
+  SpecialCatSpawnConfigs:
+  - MaxRemainingTime: 30
+    MinRemainingTime: 0
+    MinInterval: 1
+    MaxInterval: 2
+    CatAppearanceDuration: 5

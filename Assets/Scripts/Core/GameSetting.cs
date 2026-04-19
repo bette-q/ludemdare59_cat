@@ -24,6 +24,33 @@ public class CatSpawnIntervalConfig
     }
 }
 
+[Serializable]
+public class SpecialCatSpawnConfig
+{
+    [Header("剩余时间上限(包含)")] public int MaxRemainingTime = 30;
+    [Header("剩余时间下限(不包含)")] public int MinRemainingTime = 0;
+    [Header("最小刷特殊猫间隔")] public float MinInterval = 8f;
+    [Header("最大刷特殊猫间隔")] public float MaxInterval = 12f;
+    [Header("特殊猫显示时长")] public float CatAppearanceDuration = 5f;
+
+    public bool IsInRange(int remainingTime)
+    {
+        return remainingTime <= MaxRemainingTime && remainingTime > MinRemainingTime;
+    }
+
+    public bool IsValid()
+    {
+        return MaxRemainingTime > MinRemainingTime;
+    }
+
+    public float GetRandomInterval()
+    {
+        var min = Mathf.Max(0.1f, Mathf.Min(MinInterval, MaxInterval));
+        var max = Mathf.Max(min, Mathf.Max(MinInterval, MaxInterval));
+        return UnityEngine.Random.Range(min, max);
+    }
+}
+
 [CreateAssetMenu(menuName = "GameSetting")]
 public class GameSetting : ScriptableObject
 {
@@ -34,6 +61,8 @@ public class GameSetting : ScriptableObject
     [Header("默认刷猫间隔")] public float DefaultCatSpawnInterval = 5f;
 
     [Header("刷猫配置")] public List<CatSpawnIntervalConfig> CatSpawnIntervals = new();
+
+    [Header("特殊猫刷出配置")] public List<SpecialCatSpawnConfig> SpecialCatSpawnConfigs = new();
 
     private CatSpawnIntervalConfig GetCatSpawnConfig(int remainingTime)
     {
@@ -74,6 +103,52 @@ public class GameSetting : ScriptableObject
         }
 
         return Mathf.Max(0.1f, CatAppearanceDuration);
+    }
+
+    public List<SpecialCatSpawnConfig> GetSpecialCatSpawnConfigs()
+    {
+        return SpecialCatSpawnConfigs;
+    }
+
+    private SpecialCatSpawnConfig GetSpecialCatSpawnConfig(int remainingTime)
+    {
+        if (SpecialCatSpawnConfigs == null)
+        {
+            return null;
+        }
+
+        for (var i = 0; i < SpecialCatSpawnConfigs.Count; i++)
+        {
+            var config = SpecialCatSpawnConfigs[i];
+            if (config != null && config.IsInRange(remainingTime))
+            {
+                return config;
+            }
+        }
+
+        return null;
+    }
+
+    public float GetSpecialCatSpawnInterval(int remainingTime)
+    {
+        var config = GetSpecialCatSpawnConfig(remainingTime);
+        if (config != null)
+        {
+            return config.GetRandomInterval();
+        }
+
+        return -1f;
+    }
+
+    public float GetSpecialCatAppearanceDuration(int remainingTime)
+    {
+        var config = GetSpecialCatSpawnConfig(remainingTime);
+        if (config != null)
+        {
+            return Mathf.Max(0.1f, config.CatAppearanceDuration);
+        }
+
+        return -1f;
     }
 }
 

@@ -27,6 +27,9 @@ public class MainView : BaseView
     private int _remainingTime;
     private bool _isGameRunning;
 
+    public int RemainingTime => _remainingTime;
+    public bool IsGameRunning => _isGameRunning;
+
     private void Awake()
     {
         for (var i = 0; i < _eventTriggerList.Count; i++)
@@ -89,6 +92,7 @@ public class MainView : BaseView
         _successText.SetText(_successCount.ToString());
         _failText.SetText(_failCount.ToString());
         _timeText.SetText(_remainingTime.ToString());
+        SpecialCatManager.Instance.StartGame(this);
         SpawnCatOnce();
         _countDownCoroutine = StartCoroutine(CountDown());
         _spawnCatCoroutine = StartCoroutine(SpawnCat());
@@ -148,6 +152,7 @@ public class MainView : BaseView
         StopSpawnCat();
         ClearDragState();
         CatManager.Instance.HideAllCats();
+        SpecialCatManager.Instance.StopGame();
         GameManager.Instance.OpenView<EndView>();
         var view = GameManager.Instance.GetView<EndView>();
         view.Show(_successCount, _failCount);
@@ -197,6 +202,7 @@ public class MainView : BaseView
 
     private void OnDestroy()
     {
+        SpecialCatManager.Instance.StopGame();
         ClearDragState();
         StopCountDown();
         StopSpawnCat();

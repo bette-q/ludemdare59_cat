@@ -1186,6 +1186,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 337667220}
     m_Modifications:
+    - target: {fileID: -4972496294172176438, guid: cfadde0c01718ac4d8db2469e1108d23, type: 3}
+      propertyPath: SpecialFurnitureDefinition
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 5893724357971304695, guid: cfadde0c01718ac4d8db2469e1108d23, type: 3}
       propertyPath: m_Name
       value: CatGroup (2)
@@ -1306,6 +1310,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 337667220}
     m_Modifications:
+    - target: {fileID: -4972496294172176438, guid: cfadde0c01718ac4d8db2469e1108d23, type: 3}
+      propertyPath: CanSpawnSpecial
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -4972496294172176438, guid: cfadde0c01718ac4d8db2469e1108d23, type: 3}
+      propertyPath: SpecialFurnitureDefinition
+      value: 
+      objectReference: {fileID: 11400000, guid: ac7a8c0b250b8ac499b6dd107bae1ad4, type: 2}
     - target: {fileID: 5893724357971304695, guid: cfadde0c01718ac4d8db2469e1108d23, type: 3}
       propertyPath: m_Name
       value: CatGroup (3)
@@ -2312,6 +2324,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 337667220}
     m_Modifications:
+    - target: {fileID: -4972496294172176438, guid: cfadde0c01718ac4d8db2469e1108d23, type: 3}
+      propertyPath: CanSpawnSpecial
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -4972496294172176438, guid: cfadde0c01718ac4d8db2469e1108d23, type: 3}
+      propertyPath: SpecialFurnitureDefinition
+      value: 
+      objectReference: {fileID: 11400000, guid: ac7a8c0b250b8ac499b6dd107bae1ad4, type: 2}
     - target: {fileID: 864296429421034796, guid: cfadde0c01718ac4d8db2469e1108d23, type: 3}
       propertyPath: m_Sprite
       value: 

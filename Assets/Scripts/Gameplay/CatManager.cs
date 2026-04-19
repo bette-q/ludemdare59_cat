@@ -44,7 +44,7 @@ public class CatManager : Singleton<CatManager>
         for (var i = 0; i < _spawn.childCount; i++)
         {
             var hides = _spawn.GetChild(i);
-            if (!hides.gameObject.activeSelf)
+            if (!hides.gameObject.activeSelf && !SpecialCatManager.Instance.IsSpawnOccupied(hides))
             {
                 hiddenCats.Add(hides);
             }

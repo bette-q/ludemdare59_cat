@@ -2,14 +2,6 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public enum E_CatType
-{
-    Cat1,
-    Cat2,
-    Cat3,
-    Cat4,
-}
-
 public class Cat : MonoBehaviour
 {
     private CatRequestDefinition _currentRequest;
@@ -45,6 +37,8 @@ public class Cat : MonoBehaviour
     {
         _currentRequest = request;
         _isResolved = false;
+        AudioManager.Instance.PlayCatLoad();
+        AudioManager.Instance.PlayCatRequest(request.RequestSound);
         StopHideCoroutine();
         _hideCoroutine = StartCoroutine(HideAfter(duration));
     }

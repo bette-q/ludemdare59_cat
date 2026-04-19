@@ -85,6 +85,22 @@ public class AudioManager : Singleton<AudioManager>
         PlayOneShot(Toy2Event);
     }
 
+    public void PlayCatRequest(E_CatRequestSound requestSound)
+    {
+        switch (requestSound)
+        {
+            case E_CatRequestSound.Food:
+                PlayFood1();
+                break;
+            case E_CatRequestSound.Petting:
+                PlayAttention1();
+                break;
+            case E_CatRequestSound.Toy:
+                PlayToy1();
+                break;
+        }
+    }
+
     public void PlayMusic()
     {
         if (_musicInstance.isValid())

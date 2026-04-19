@@ -4,10 +4,10 @@ using UnityEngine;
 public class CatRequestDefinition : ScriptableObject
 {
     [SerializeField] private E_CatItem _requiredItem;
-    [SerializeField] private AudioClip _requestAudio;
+    [SerializeField] private E_CatRequestSound _requestSound;
     [SerializeField] private Sprite _bubbleSprite;
 
     public E_CatItem RequiredItem => _requiredItem;
-    public AudioClip RequestAudio => _requestAudio;
+    public E_CatRequestSound RequestSound => _requestSound;
     public Sprite BubbleSprite => _bubbleSprite;
 }

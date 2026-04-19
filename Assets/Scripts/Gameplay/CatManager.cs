@@ -5,10 +5,14 @@ using Random = UnityEngine.Random;
 public class CatManager : Singleton<CatManager>
 {
     private Transform _spawn;
+    private CatDefinition[] _normalCatDefinitions;
+    private CatRequestDefinition[] _normalCatRequests;
 
     public CatManager()
     {
         _spawn = GameObject.Find("Spawn").transform;
+        _normalCatDefinitions = Resources.LoadAll<CatDefinition>("CatDefinitions");
+        _normalCatRequests = Resources.LoadAll<CatRequestDefinition>("CatRequests");
         HideAllCats();
     }
 
@@ -46,14 +50,35 @@ public class CatManager : Singleton<CatManager>
             return false;
         }
 
-        var request = GameSettings.GameSetting.GetRandomNormalCatRequest();
-        if (request == null)
+        var definition = GetRandomNormalCatDefinition();
+        var request = GetRandomNormalCatRequest();
+        if (definition == null || request == null)
         {
             child.gameObject.SetActive(false);
             return false;
         }
 
-        cat.Show(request, catDuration);
+        cat.Show(definition, request, catDuration);
         return true;
+    }
+
+    private CatDefinition GetRandomNormalCatDefinition()
+    {
+        if (_normalCatDefinitions == null || _normalCatDefinitions.Length == 0)
+        {
+            return null;
+        }
+
+        return _normalCatDefinitions[Random.Range(0, _normalCatDefinitions.Length)];
+    }
+
+    private CatRequestDefinition GetRandomNormalCatRequest()
+    {
+        if (_normalCatRequests == null || _normalCatRequests.Length == 0)
+        {
+            return null;
+        }
+
+        return _normalCatRequests[Random.Range(0, _normalCatRequests.Length)];
     }
 }

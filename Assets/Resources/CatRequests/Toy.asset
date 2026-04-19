@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddbaad0857f55b04095808a240626ae8, type: 3}
   m_Name: Toy
   m_EditorClassIdentifier: 
-  _requiredItem: 0
-  _requestSound: 0
-  _bubbleSprite: {fileID: 0}
+  _requiredItem: 2
+  _requestSound: 2
+  _bubbleSprite: {fileID: 21300000, guid: a58312740d84baf46ab961b9be562af3, type: 3}

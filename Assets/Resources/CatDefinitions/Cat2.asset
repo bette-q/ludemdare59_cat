@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8daf96515cefc949906bf8a1c2c98d9, type: 3}
+  m_Name: Cat2
+  m_EditorClassIdentifier: 
+  _catType: 1
+  _defaultSprite: {fileID: 21300000, guid: acc2135ad68346d498a987050ffa4c51, type: 3}
+  _goodSprite: {fileID: 21300000, guid: 1e082847fc8a1d44aab0ebc7e3557105, type: 3}
+  _evilSprite: {fileID: 21300000, guid: 60d40cd8563fa4042a5b324ae5dd1dc2, type: 3}
+  _runningSprite: {fileID: 21300000, guid: 2d11a5153894571489c0fd5ec8d0ebd9, type: 3}

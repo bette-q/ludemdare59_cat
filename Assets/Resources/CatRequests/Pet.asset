@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddbaad0857f55b04095808a240626ae8, type: 3}
   m_Name: Pet
   m_EditorClassIdentifier: 
-  _requiredItem: 0
-  _requestSound: 0
-  _bubbleSprite: {fileID: 0}
+  _requiredItem: 1
+  _requestSound: 1
+  _bubbleSprite: {fileID: 21300000, guid: c05cd141204f51748a6de7513c260984, type: 3}

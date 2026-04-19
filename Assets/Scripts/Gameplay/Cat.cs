@@ -11,6 +11,7 @@ public class Cat : MonoBehaviour
 
     private CatDefinition _currentDefinition;
     private CatRequestDefinition _currentRequest;
+    private Furniture _currentFurniture;
     private Coroutine _hideCoroutine;
     private Coroutine _resolveCoroutine;
     private bool _isResolved;
@@ -20,6 +21,7 @@ public class Cat : MonoBehaviour
         var listener = EventTriggerListener.Get(gameObject);
         listener.OnDropEvent -= OnDrop;
         listener.OnDropEvent += OnDrop;
+        Debug.Log($"Cat drop binding enabled: target={gameObject.name}");
     }
 
     private void OnDisable()
@@ -30,24 +32,42 @@ public class Cat : MonoBehaviour
         StopResolveCoroutine();
         _currentDefinition = null;
         _currentRequest = null;
+        _currentFurniture = null;
         _isResolved = false;
     }
 
     private void OnDrop(GameObject go, PointerEventData ev)
     {
+        Debug.Log($"Cat OnDrop entered: target={go.name}, position={ev.position}, isResolved={_isResolved}");
         var view = GameManager.Instance.GetView<MainView>();
-        if (view == null || _isResolved || !view.TryConsumeDrag(out var catItem))
+        if (view == null)
+        {
+            Debug.Log("Cat OnDrop ignored: MainView is null");
             return;
+        }
+
+        if (_isResolved)
+        {
+            Debug.Log("Cat OnDrop ignored: cat is already resolved");
+            return;
+        }
+
+        if (!view.TryConsumeDrag(out var catItem))
+        {
+            Debug.Log("Cat OnDrop ignored: no active drag item to consume");
+            return;
+        }
 
         var isValid = _currentRequest != null && catItem == _currentRequest.RequiredItem;
         Debug.Log($"Cat received item: {catItem}, required item: {_currentRequest?.RequiredItem.ToString() ?? "None"}, valid: {isValid}");
         Resolve(isValid);
     }
 
-    public void Show(CatDefinition definition, CatRequestDefinition request, float duration)
+    public void Show(CatDefinition definition, CatRequestDefinition request, Furniture furniture, float duration)
     {
         _currentDefinition = definition;
         _currentRequest = request;
+        _currentFurniture = furniture;
         _isResolved = false;
         StopResolveCoroutine();
         ApplySprites(definition, request);
@@ -87,6 +107,7 @@ public class Cat : MonoBehaviour
 
         _isResolved = true;
         StopHideCoroutine();
+        Debug.Log($"Cat Resolve: target={gameObject.name}, success={isSuccess}");
 
         var view = GameManager.Instance.GetView<MainView>();
         if (isSuccess)
@@ -113,11 +134,22 @@ public class Cat : MonoBehaviour
             _catSpriteRenderer.sprite = isSuccess ? _currentDefinition?.GoodSprite : _currentDefinition?.EvilSprite;
         }
 
+        if (!isSuccess)
+        {
+            _currentFurniture?.ShowTilt();
+        }
+
         yield return new WaitForSeconds(_validationSpriteDuration);
 
         if (_catSpriteRenderer != null)
         {
             _catSpriteRenderer.sprite = _currentDefinition?.RunningSprite;
+        }
+
+        if (!isSuccess)
+        {
+            CatManager.Instance.SpawnBrokenFurniture(_currentFurniture);
+            _currentFurniture.HideFurniture();
         }
 
         yield return new WaitForSeconds(_runningSpriteDuration);

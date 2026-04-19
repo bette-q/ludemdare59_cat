@@ -5,14 +5,20 @@ using Random = UnityEngine.Random;
 public class CatManager : Singleton<CatManager>
 {
     private Transform _spawn;
+    private Transform _brokenRoot;
+    private GameObject _brokenFurniturePrefab;
     private CatDefinition[] _normalCatDefinitions;
     private CatRequestDefinition[] _normalCatRequests;
+    private FurnitureDefinition[] _furnitureDefinitions;
 
     public CatManager()
     {
         _spawn = GameObject.Find("Spawn").transform;
+        _brokenRoot = GameObject.Find("BrokenRoot").transform;
+        _brokenFurniturePrefab = Resources.Load<GameObject>("Prefab/BrokenFurniture");
         _normalCatDefinitions = Resources.LoadAll<CatDefinition>("CatDefinitions");
         _normalCatRequests = Resources.LoadAll<CatRequestDefinition>("CatRequests");
+        _furnitureDefinitions = Resources.LoadAll<FurnitureDefinition>("FurnitureDefinitions");
         HideAllCats();
     }
 
@@ -44,7 +50,14 @@ public class CatManager : Singleton<CatManager>
         var child = hiddenCats[Random.Range(0, hiddenCats.Count)];
         child.gameObject.SetActive(true);
         var cat = child.GetComponentInChildren<Cat>(true);
+        var furniture = child.GetComponentInChildren<Furniture>(true);
         if (cat == null)
+        {
+            child.gameObject.SetActive(false);
+            return false;
+        }
+
+        if (furniture == null)
         {
             child.gameObject.SetActive(false);
             return false;
@@ -52,14 +65,26 @@ public class CatManager : Singleton<CatManager>
 
         var definition = GetRandomNormalCatDefinition();
         var request = GetRandomNormalCatRequest();
-        if (definition == null || request == null)
+        var furnitureDefinition = GetRandomFurnitureDefinition();
+        if (definition == null || request == null || furnitureDefinition == null)
         {
             child.gameObject.SetActive(false);
             return false;
         }
 
-        cat.Show(definition, request, catDuration);
+        furniture.ResetFurniture(furnitureDefinition);
+        cat.Show(definition, request, furniture, catDuration);
         return true;
+    }
+
+    public void SpawnBrokenFurniture(Furniture furniture)
+    {
+        var sourceRenderer = furniture.SpriteRenderer;
+        var brokenObject = Object.Instantiate(_brokenFurniturePrefab, _brokenRoot);
+        brokenObject.name = $"{furniture.gameObject.name}_Broken";
+
+        var brokenFurniture = brokenObject.GetComponent<BrokenFurniture>();
+        brokenFurniture.Initialize(furniture.BrokenSprite, sourceRenderer, furniture.BrokenFloorY, furniture.BrokenFallSpeed);
     }
 
     private CatDefinition GetRandomNormalCatDefinition()
@@ -80,5 +105,15 @@ public class CatManager : Singleton<CatManager>
         }
 
         return _normalCatRequests[Random.Range(0, _normalCatRequests.Length)];
+    }
+
+    private FurnitureDefinition GetRandomFurnitureDefinition()
+    {
+        if (_furnitureDefinitions == null || _furnitureDefinitions.Length == 0)
+        {
+            return null;
+        }
+
+        return _furnitureDefinitions[Random.Range(0, _furnitureDefinitions.Length)];
     }
 }

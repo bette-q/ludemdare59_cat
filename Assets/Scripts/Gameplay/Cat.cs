@@ -21,7 +21,6 @@ public class Cat : MonoBehaviour
         var listener = EventTriggerListener.Get(gameObject);
         listener.OnDropEvent -= OnDrop;
         listener.OnDropEvent += OnDrop;
-        Debug.Log($"Cat drop binding enabled: target={gameObject.name}");
     }
 
     private void OnDisable()
@@ -148,6 +147,7 @@ public class Cat : MonoBehaviour
 
         if (!isSuccess)
         {
+            AudioManager.Instance.PlayGlassBreak();
             CatManager.Instance.SpawnBrokenFurniture(_currentFurniture);
             _currentFurniture.HideFurniture();
         }

@@ -148,7 +148,9 @@ public class MainView : BaseView
         StopSpawnCat();
         ClearDragState();
         CatManager.Instance.HideAllCats();
-        GameManager.Instance.OpenEndView(_successCount, _failCount);
+        GameManager.Instance.OpenView<EndView>();
+        var view = GameManager.Instance.GetView<EndView>();
+        view.Show(_successCount, _failCount);
     }
 
     public bool TryConsumeDrag(out E_CatItem catItem)

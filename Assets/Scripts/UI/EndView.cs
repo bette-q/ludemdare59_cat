@@ -20,7 +20,7 @@ public class EndView : BaseView
         _goodScoreText.SetText(goodScore.ToString());
         _badScoreText.SetText(badScore.ToString());
 
-        if (goodScore > badScore)
+        if (goodScore >= badScore)
         {
             AudioManager.Instance.PlayVictory();
         }

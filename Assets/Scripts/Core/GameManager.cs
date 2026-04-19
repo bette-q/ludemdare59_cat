@@ -37,9 +37,4 @@ public class GameManager : Singleton<GameManager>
         }
     }
 
-    public void OpenEndView(int goodScore, int badScore)
-    {
-        OpenView<EndView>();
-        GetView<EndView>().Show(goodScore, badScore);
-    }
 }

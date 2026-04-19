@@ -126,7 +126,6 @@
              return;
          }
 
-         Debug.Log($"EventTriggerListener OnBeginDrag: target={gameObject.name}, position={event_data.position}");
          OnDragBegin?.Invoke(gameObject, event_data);
      }
 
@@ -147,7 +146,6 @@
              return;
          }
 
-         Debug.Log($"EventTriggerListener OnEndDrag: target={gameObject.name}, position={event_data.position}");
          OnDragEnd?.Invoke(gameObject, event_data);
      }
 
@@ -158,7 +156,6 @@
              return;
          }
 
-         Debug.Log($"EventTriggerListener OnDrop: target={gameObject.name}, pointerDrag={event_data.pointerDrag?.name ?? "None"}, position={event_data.position}");
          OnDropEvent?.Invoke(gameObject, event_data);
      }
 

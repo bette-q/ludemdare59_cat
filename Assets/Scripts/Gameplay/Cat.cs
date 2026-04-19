@@ -37,28 +37,23 @@ public class Cat : MonoBehaviour
 
     private void OnDrop(GameObject go, PointerEventData ev)
     {
-        Debug.Log($"Cat OnDrop entered: target={go.name}, position={ev.position}, acceptsItemDrop={_acceptsItemDrop}");
         var view = GameManager.Instance.GetView<MainView>();
         if (view == null)
         {
-            Debug.Log("Cat OnDrop ignored: MainView is null");
             return;
         }
 
         if (!_acceptsItemDrop)
         {
-            Debug.Log("Cat OnDrop ignored: cat is no longer accepting item drops");
             return;
         }
 
         if (!view.TryConsumeDrag(out var catItem))
         {
-            Debug.Log("Cat OnDrop ignored: no active drag item to consume");
             return;
         }
 
         var isValid = _currentRequest != null && catItem == _currentRequest.RequiredItem;
-        Debug.Log($"Cat received item: {catItem}, required item: {_currentRequest?.RequiredItem.ToString() ?? "None"}, valid: {isValid}");
         Resolve(isValid);
     }
 

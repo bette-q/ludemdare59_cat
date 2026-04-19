@@ -3,14 +3,14 @@ using UnityEngine;
 public class Furniture : MonoBehaviour
 {
     [SerializeField] private SpriteRenderer _spriteRenderer;
-    [SerializeField] private float _brokenFloorY = -4f;
+    [SerializeField] private float _brokenDropDistance = 0.75f;
     [SerializeField] private float _brokenFallSpeed = 6f;
 
     private FurnitureDefinition _currentDefinition;
 
     public SpriteRenderer SpriteRenderer => _spriteRenderer;
     public Sprite BrokenSprite => _currentDefinition.BrokenSprite;
-    public float BrokenFloorY => _brokenFloorY;
+    public float BrokenTargetY => _spriteRenderer.transform.position.y - _brokenDropDistance;
     public float BrokenFallSpeed => _brokenFallSpeed;
 
     public void ResetFurniture(FurnitureDefinition definition)

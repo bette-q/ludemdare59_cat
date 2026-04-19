@@ -8,6 +8,8 @@ public class GameManager : Singleton<GameManager>
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
     private static void BeforeSceneLoad()
     {
+        AudioManager.Instance.PlayMusic();
+
         foreach (var view in Object.FindObjectsOfType<BaseView>(true))
         {
             view.gameObject.SetActive(view is MenuView);

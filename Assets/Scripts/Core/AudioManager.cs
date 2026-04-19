@@ -90,13 +90,13 @@ public class AudioManager : Singleton<AudioManager>
         switch (requestSound)
         {
             case E_CatRequestSound.Food:
-                PlayFood1();
+                PlayOneShot(UnityEngine.Random.Range(0, 2) == 0 ? Food1Event : Food2Event);
                 break;
             case E_CatRequestSound.Petting:
-                PlayAttention1();
+                PlayOneShot(UnityEngine.Random.Range(0, 2) == 0 ? Attention1Event : Attention2Event);
                 break;
             case E_CatRequestSound.Toy:
-                PlayToy1();
+                PlayOneShot(UnityEngine.Random.Range(0, 2) == 0 ? Toy1Event : Toy2Event);
                 break;
         }
     }

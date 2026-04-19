@@ -33,7 +33,6 @@ public class MainView : BaseView
         {
             var index = i;
             var trigger = EventTriggerListener.Get(_eventTriggerList[index]);
-            Debug.Log($"MainView drag binding: item={(E_CatItem)index}, source={_eventTriggerList[index].name}");
             trigger.OnDragBegin += (go, ev) => { OnDragBegin((E_CatItem)index, go, ev); };
             trigger.OnDragEvent += (go, ev) => { OnDragEvent((E_CatItem)index, go, ev); };
             trigger.OnDragEnd += (go, ev) => { OnDragEnd((E_CatItem)index, go, ev); };
@@ -45,7 +44,6 @@ public class MainView : BaseView
         Clear();
         IsDragging = true;
         CurCatItem = itemType;
-        Debug.Log($"MainView drag begin: item={CurCatItem}, source={go.name}, position={ev.position}");
         _curDragItem = Instantiate(_itemList[(int)CurCatItem], ev.position, Quaternion.identity);
         _curDragItem.GetComponent<Image>().raycastTarget = false;
         _curDragItem.transform.SetParent(transform);
@@ -59,7 +57,6 @@ public class MainView : BaseView
 
     private void OnDragEnd(E_CatItem itemType, GameObject go, PointerEventData ev)
     {
-        Debug.Log($"MainView drag end: item={itemType}, source={go.name}, wasDragging={IsDragging}, position={ev.position}");
         IsDragging = false;
         Clear();
     }
@@ -84,6 +81,7 @@ public class MainView : BaseView
         StopSpawnCat();
         ClearDragState();
         CatManager.Instance.HideAllCats();
+        CatManager.Instance.ClearBrokenFurniture();
         _successCount = 0;
         _failCount = 0;
         _remainingTime = Setting.CountDownTime;
@@ -156,15 +154,12 @@ public class MainView : BaseView
     public bool TryConsumeDrag(out E_CatItem catItem)
     {
         catItem = CurCatItem;
-        Debug.Log($"MainView TryConsumeDrag entered: isDragging={IsDragging}, currentItem={CurCatItem}");
         if (!IsDragging)
         {
-            Debug.Log($"MainView TryConsumeDrag failed: IsDragging=false, currentItem={CurCatItem}");
             return false;
         }
 
         IsDragging = false;
-        Debug.Log($"MainView TryConsumeDrag success: consumedItem={catItem}");
         Clear();
         return true;
     }

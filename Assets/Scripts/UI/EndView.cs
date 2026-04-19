@@ -19,6 +19,15 @@ public class EndView : BaseView
     {
         _goodScoreText.SetText(goodScore.ToString());
         _badScoreText.SetText(badScore.ToString());
+
+        if (goodScore > badScore)
+        {
+            AudioManager.Instance.PlayVictory();
+        }
+        else if (badScore > goodScore)
+        {
+            AudioManager.Instance.PlayFailure();
+        }
     }
 
     private static void RestartGame()

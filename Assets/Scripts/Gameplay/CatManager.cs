@@ -30,6 +30,14 @@ public class CatManager : Singleton<CatManager>
         }
     }
 
+    public void ClearBrokenFurniture()
+    {
+        for (var i = _brokenRoot.childCount - 1; i >= 0; i--)
+        {
+            Object.Destroy(_brokenRoot.GetChild(i).gameObject);
+        }
+    }
+
     public bool ShowHiddenCat(float catDuration)
     {
         var hiddenCats = new List<Transform>();
@@ -84,7 +92,7 @@ public class CatManager : Singleton<CatManager>
         brokenObject.name = $"{furniture.gameObject.name}_Broken";
 
         var brokenFurniture = brokenObject.GetComponent<BrokenFurniture>();
-        brokenFurniture.Initialize(furniture.BrokenSprite, sourceRenderer, furniture.BrokenFloorY, furniture.BrokenFallSpeed);
+        brokenFurniture.Initialize(furniture.BrokenSprite, sourceRenderer, furniture.BrokenTargetY, furniture.BrokenFallSpeed);
     }
 
     private CatDefinition GetRandomNormalCatDefinition()

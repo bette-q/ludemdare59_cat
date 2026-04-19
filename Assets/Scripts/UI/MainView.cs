@@ -120,11 +120,8 @@ public class MainView : BaseView
         }
 
         _remainingTime = 0;
-        _isGameRunning = false;
         _timeText.SetText("0");
-        StopSpawnCat();
-        ClearDragState();
-        CatManager.Instance.HideAllCats();
+        EndGame();
     }
 
     private IEnumerator SpawnCat()
@@ -145,6 +142,15 @@ public class MainView : BaseView
     private void SpawnCatOnce()
     {
         CatManager.Instance.ShowHiddenCat(Setting.GetCatAppearanceDuration(_remainingTime));
+    }
+
+    private void EndGame()
+    {
+        _isGameRunning = false;
+        StopSpawnCat();
+        ClearDragState();
+        CatManager.Instance.HideAllCats();
+        GameManager.Instance.OpenEndView(_successCount, _failCount);
     }
 
     public bool TryConsumeDrag(out E_CatItem catItem)

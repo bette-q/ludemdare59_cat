@@ -34,4 +34,10 @@ public class GameManager : Singleton<GameManager>
             kvp.Value.gameObject.SetActive(kvp.Value is T);
         }
     }
+
+    public void OpenEndView(int goodScore, int badScore)
+    {
+        OpenView<EndView>();
+        GetView<EndView>().Show(goodScore, badScore);
+    }
 }

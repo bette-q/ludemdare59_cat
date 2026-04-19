@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd086c81fbc1a394fafe5f372e463910, type: 3}
   m_Name: Setting
   m_EditorClassIdentifier: 
-  CountDownTime: 100
+  CountDownTime: 30
   CatAppearanceDuration: 5
   DefaultCatSpawnInterval: 5
   CatSpawnIntervals:

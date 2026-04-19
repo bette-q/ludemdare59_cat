@@ -14,7 +14,7 @@ public class Cat : MonoBehaviour
     private Furniture _currentFurniture;
     private Coroutine _hideCoroutine;
     private Coroutine _resolveCoroutine;
-    private bool _isResolved;
+    private bool _acceptsItemDrop;
 
     private void OnEnable()
     {
@@ -32,12 +32,12 @@ public class Cat : MonoBehaviour
         _currentDefinition = null;
         _currentRequest = null;
         _currentFurniture = null;
-        _isResolved = false;
+        _acceptsItemDrop = false;
     }
 
     private void OnDrop(GameObject go, PointerEventData ev)
     {
-        Debug.Log($"Cat OnDrop entered: target={go.name}, position={ev.position}, isResolved={_isResolved}");
+        Debug.Log($"Cat OnDrop entered: target={go.name}, position={ev.position}, acceptsItemDrop={_acceptsItemDrop}");
         var view = GameManager.Instance.GetView<MainView>();
         if (view == null)
         {
@@ -45,9 +45,9 @@ public class Cat : MonoBehaviour
             return;
         }
 
-        if (_isResolved)
+        if (!_acceptsItemDrop)
         {
-            Debug.Log("Cat OnDrop ignored: cat is already resolved");
+            Debug.Log("Cat OnDrop ignored: cat is no longer accepting item drops");
             return;
         }
 
@@ -67,7 +67,7 @@ public class Cat : MonoBehaviour
         _currentDefinition = definition;
         _currentRequest = request;
         _currentFurniture = furniture;
-        _isResolved = false;
+        _acceptsItemDrop = true;
         StopResolveCoroutine();
         ApplySprites(definition, request);
         AudioManager.Instance.PlayCatLoad();
@@ -99,12 +99,12 @@ public class Cat : MonoBehaviour
 
     private void Resolve(bool isSuccess)
     {
-        if (_isResolved)
+        if (!_acceptsItemDrop)
         {
             return;
         }
 
-        _isResolved = true;
+        _acceptsItemDrop = false;
         StopHideCoroutine();
         Debug.Log($"Cat Resolve: target={gameObject.name}, success={isSuccess}");
 
@@ -131,6 +131,11 @@ public class Cat : MonoBehaviour
         if (_catSpriteRenderer != null)
         {
             _catSpriteRenderer.sprite = isSuccess ? _currentDefinition?.GoodSprite : _currentDefinition?.EvilSprite;
+        }
+
+        if (isSuccess)
+        {
+            AudioManager.Instance.PlayCorrectMatch();
         }
 
         if (!isSuccess)

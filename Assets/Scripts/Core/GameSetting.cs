@@ -75,9 +75,7 @@ public class GameSetting : ScriptableObject
 
         return Mathf.Max(0.1f, CatAppearanceDuration);
     }
-
 }
-
 
 public static class GameSettings
 {

@@ -16,13 +16,13 @@ MonoBehaviour:
   CatAppearanceDuration: 5
   DefaultCatSpawnInterval: 5
   CatSpawnIntervals:
-  - MaxRemainingTime: 100
-    MinRemainingTime: 80
+  - MaxRemainingTime: 30
+    MinRemainingTime: 15
     MinInterval: 5
     MaxInterval: 6
     CatAppearanceDuration: 5
-  - MaxRemainingTime: 80
-    MinRemainingTime: 60
-    MinInterval: 4
-    MaxInterval: 5
+  - MaxRemainingTime: 15
+    MinRemainingTime: 0
+    MinInterval: 3
+    MaxInterval: 4
     CatAppearanceDuration: 4

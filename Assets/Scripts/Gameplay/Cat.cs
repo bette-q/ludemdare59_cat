@@ -14,6 +14,7 @@ public class Cat : MonoBehaviour
     private Furniture _currentFurniture;
     private Coroutine _hideCoroutine;
     private Coroutine _resolveCoroutine;
+    private Coroutine _bubbleCoroutine;
     private bool _acceptsItemDrop;
 
     private void OnEnable()
@@ -29,6 +30,7 @@ public class Cat : MonoBehaviour
         listener.OnDropEvent -= OnDrop;
         StopHideCoroutine();
         StopResolveCoroutine();
+        StopBubbleCoroutine();
         _currentDefinition = null;
         _currentRequest = null;
         _currentFurniture = null;
@@ -66,7 +68,8 @@ public class Cat : MonoBehaviour
         StopResolveCoroutine();
         ApplySprites(definition, request);
         AudioManager.Instance.PlayCatLoad();
-        AudioManager.Instance.PlayCatRequest(request.RequestSound);
+        StopBubbleCoroutine();
+        _bubbleCoroutine = StartCoroutine(HideBubbleAfterRequest(AudioManager.Instance.PlayCatRequest(request.RequestSound)));
         StopHideCoroutine();
         _hideCoroutine = StartCoroutine(HideAfter(duration));
     }
@@ -92,6 +95,20 @@ public class Cat : MonoBehaviour
         Resolve(false);
     }
 
+    private IEnumerator HideBubbleAfterRequest(float duration)
+    {
+        if (duration > 0f)
+        {
+            yield return new WaitForSeconds(duration);
+        }
+
+        _bubbleCoroutine = null;
+        if (_acceptsItemDrop && _bubbleSpriteRenderer != null)
+        {
+            _bubbleSpriteRenderer.gameObject.SetActive(false);
+        }
+    }
+
     private void Resolve(bool isSuccess)
     {
         if (!_acceptsItemDrop)
@@ -101,6 +118,7 @@ public class Cat : MonoBehaviour
 
         _acceptsItemDrop = false;
         StopHideCoroutine();
+        StopBubbleCoroutine();
         Debug.Log($"Cat Resolve: target={gameObject.name}, success={isSuccess}");
 
         var view = GameManager.Instance.GetView<MainView>();
@@ -178,5 +196,16 @@ public class Cat : MonoBehaviour
 
         StopCoroutine(_resolveCoroutine);
         _resolveCoroutine = null;
+    }
+
+    private void StopBubbleCoroutine()
+    {
+        if (_bubbleCoroutine == null)
+        {
+            return;
+        }
+
+        StopCoroutine(_bubbleCoroutine);
+        _bubbleCoroutine = null;
     }
 }

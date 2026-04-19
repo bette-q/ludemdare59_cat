@@ -85,20 +85,15 @@ public class AudioManager : Singleton<AudioManager>
         PlayOneShot(Toy2Event);
     }
 
-    public void PlayCatRequest(E_CatRequestSound requestSound)
+    public float PlayCatRequest(E_CatRequestSound requestSound)
     {
-        switch (requestSound)
+        var eventPath = GetCatRequestEventPath(requestSound);
+        if (string.IsNullOrEmpty(eventPath))
         {
-            case E_CatRequestSound.Food:
-                PlayOneShot(UnityEngine.Random.Range(0, 2) == 0 ? Food1Event : Food2Event);
-                break;
-            case E_CatRequestSound.Petting:
-                PlayOneShot(UnityEngine.Random.Range(0, 2) == 0 ? Attention1Event : Attention2Event);
-                break;
-            case E_CatRequestSound.Toy:
-                PlayOneShot(UnityEngine.Random.Range(0, 2) == 0 ? Toy1Event : Toy2Event);
-                break;
+            return 0f;
         }
+
+        return PlayOneShotWithDuration(eventPath);
     }
 
     public void PlayMusic()
@@ -127,5 +122,30 @@ public class AudioManager : Singleton<AudioManager>
     private static void PlayOneShot(string eventPath)
     {
         RuntimeManager.PlayOneShot(eventPath);
+    }
+
+    private static string GetCatRequestEventPath(E_CatRequestSound requestSound)
+    {
+        switch (requestSound)
+        {
+            case E_CatRequestSound.Food:
+                return UnityEngine.Random.Range(0, 2) == 0 ? Food1Event : Food2Event;
+            case E_CatRequestSound.Petting:
+                return UnityEngine.Random.Range(0, 2) == 0 ? Attention1Event : Attention2Event;
+            case E_CatRequestSound.Toy:
+                return UnityEngine.Random.Range(0, 2) == 0 ? Toy1Event : Toy2Event;
+            default:
+                return null;
+        }
+    }
+
+    private static float PlayOneShotWithDuration(string eventPath)
+    {
+        var instance = RuntimeManager.CreateInstance(eventPath);
+        instance.getDescription(out var description);
+        description.getLength(out var lengthMs);
+        instance.start();
+        instance.release();
+        return lengthMs / 1000f;
     }
 }

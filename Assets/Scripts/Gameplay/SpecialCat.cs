@@ -220,8 +220,8 @@ public class SpecialCat : MonoBehaviour
 
         _resolveCoroutine = null;
         var specialCatGroup = transform.parent.gameObject;
-        SpecialCatManager.Instance.NotifySpecialCatFinished(this);
-        Destroy(specialCatGroup);
+        CatManager.Instance.NotifySpecialCatFinished(this);
+        specialCatGroup.SetActive(false);
     }
 
     private void StopHideCoroutine()

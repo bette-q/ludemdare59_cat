@@ -17,6 +17,9 @@ public class AudioManager : Singleton<AudioManager>
     private const string Toy1Event = "event:/CatSFX/Toy1";
     private const string Toy2Event = "event:/CatSFX/Toy2";
     private const string MusicEvent = "event:/Mx";
+    private const string MusicTransitionParameter = "Transition";
+    private const string MusicMenuTransition = "Menu";
+    private const string MusicInGameTransition = "InGame";
 
     private EventInstance _musicInstance;
 
@@ -104,7 +107,18 @@ public class AudioManager : Singleton<AudioManager>
         }
 
         _musicInstance = RuntimeManager.CreateInstance(MusicEvent);
+        SetMusicTransition(MusicMenuTransition);
         _musicInstance.start();
+    }
+
+    public void PlayMenuMusic()
+    {
+        SetMusicTransition(MusicMenuTransition);
+    }
+
+    public void PlayInGameMusic()
+    {
+        SetMusicTransition(MusicInGameTransition);
     }
 
     public void StopMusic()
@@ -117,6 +131,16 @@ public class AudioManager : Singleton<AudioManager>
         _musicInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
         _musicInstance.release();
         _musicInstance.clearHandle();
+    }
+
+    private void SetMusicTransition(string transition)
+    {
+        if (!_musicInstance.isValid())
+        {
+            return;
+        }
+
+        _musicInstance.setParameterByNameWithLabel(MusicTransitionParameter, transition);
     }
 
     private static void PlayOneShot(string eventPath)

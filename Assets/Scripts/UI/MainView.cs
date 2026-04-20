@@ -22,7 +22,6 @@ public class MainView : BaseView
     private GameObject _curDragItem;
 
     private Coroutine _countDownCoroutine;
-    private Coroutine _spawnCatCoroutine;
     private Coroutine _startGameCoroutine;
 
     private int _successCount;
@@ -86,7 +85,7 @@ public class MainView : BaseView
     {
         StopStartGameSequence();
         StopCountDown();
-        StopSpawnCat();
+        CatManager.Instance.StopGame();
         ClearDragState();
         CatManager.Instance.HideAllCats();
         CatManager.Instance.ClearBrokenFurniture();
@@ -115,10 +114,9 @@ public class MainView : BaseView
     private void GameStart()
     {
         _isGameRunning = true;
-        SpecialCatManager.Instance.StartGame(this);
-        SpawnCatOnce();
+        AudioManager.Instance.PlayInGameMusic();
+        CatManager.Instance.StartGame(this);
         _countDownCoroutine = StartCoroutine(CountDown());
-        _spawnCatCoroutine = StartCoroutine(SpawnCat());
     }
 
     public void UpdateSuccess()
@@ -149,34 +147,13 @@ public class MainView : BaseView
         EndGame();
     }
 
-    private IEnumerator SpawnCat()
-    {
-        while (_isGameRunning)
-        {
-            var waitTime = Setting.GetCatSpawnInterval(_remainingTime);
-            yield return new WaitForSeconds(waitTime);
-            if (!_isGameRunning || _remainingTime <= 0)
-            {
-                yield break;
-            }
-
-            SpawnCatOnce();
-        }
-    }
-
-    private void SpawnCatOnce()
-    {
-        CatManager.Instance.ShowHiddenCat(Setting.GetCatAppearanceDuration(_remainingTime));
-    }
-
     private void EndGame()
     {
         _isGameRunning = false;
         StopStartGameSequence();
-        StopSpawnCat();
         ClearDragState();
+        CatManager.Instance.StopGame();
         CatManager.Instance.HideAllCats();
-        SpecialCatManager.Instance.StopGame();
         GameManager.Instance.OpenView<EndView>();
         var view = GameManager.Instance.GetView<EndView>();
         view.Show(_successCount, _failCount);
@@ -212,17 +189,6 @@ public class MainView : BaseView
         _countDownCoroutine = null;
     }
 
-    private void StopSpawnCat()
-    {
-        if (_spawnCatCoroutine == null)
-        {
-            return;
-        }
-
-        StopCoroutine(_spawnCatCoroutine);
-        _spawnCatCoroutine = null;
-    }
-
     private void StopStartGameSequence()
     {
         if (_startGameCoroutine == null)
@@ -237,10 +203,9 @@ public class MainView : BaseView
 
     private void OnDestroy()
     {
-        SpecialCatManager.Instance.StopGame();
+        CatManager.Instance.StopGame();
         ClearDragState();
         StopStartGameSequence();
         StopCountDown();
-        StopSpawnCat();
     }
 }

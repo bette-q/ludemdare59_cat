@@ -31,6 +31,11 @@ public class GameManager : Singleton<GameManager>
 
     public void OpenView<T>() where T : BaseView
     {
+        if (typeof(T) != typeof(MainView))
+        {
+            AudioManager.Instance.PlayMenuMusic();
+        }
+
         foreach (var kvp in _allViews)
         {
             kvp.Value.gameObject.SetActive(kvp.Value is T);

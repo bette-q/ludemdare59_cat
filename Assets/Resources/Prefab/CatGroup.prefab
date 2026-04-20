@@ -282,8 +282,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f96889bed2a8db645b16bbc057745caf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CanSpawnSpecial: 0
-  SpecialFurnitureDefinition: {fileID: 0}
+  SpawnPointKind: 0
+  AllowedFurnitureDefinitions:
+  - {fileID: 11400000, guid: 41a0c6d2aff47d345948d7cac48862f0, type: 2}
+  - {fileID: 11400000, guid: ac7a8c0b250b8ac499b6dd107bae1ad4, type: 2}
+  - {fileID: 11400000, guid: 73024343a73f7ae4584dc8ae406eeb58, type: 2}
 --- !u!1 &8024853304272686368
 GameObject:
   m_ObjectHideFlags: 0

@@ -15,4 +15,4 @@ MonoBehaviour:
   _defaultSprite: {fileID: 21300000, guid: 72395dc84800c2a439272fd090231a4f, type: 3}
   _tiltSprite: {fileID: 21300000, guid: d34a930fd54df474ea7b671547999076, type: 3}
   _brokenSprite: {fileID: 21300000, guid: d34a930fd54df474ea7b671547999076, type: 3}
-  _scale: {x: 1, y: 1, z: 1}
+  _scale: {x: 0.1, y: 0.1, z: 1}

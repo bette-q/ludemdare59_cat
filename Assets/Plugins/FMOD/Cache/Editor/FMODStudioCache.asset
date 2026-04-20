@@ -150,7 +150,7 @@ MonoBehaviour:
   Path: Assets/Plugins/Signal Fmod/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 639122427049044156
+  lastModified: 639122778050368624
   FileSizes:
   - Name: Desktop
     Value: 1378
@@ -270,7 +270,7 @@ MonoBehaviour:
   - {fileID: 8855800087934206249}
   StringsBanks:
   - {fileID: -5963135556835869867}
-  cacheTime: 639122427049044156
+  cacheTime: 639122778050368624
   cacheVersion: 131635
 --- !u!114 &1453205824905257693
 MonoBehaviour:
@@ -477,7 +477,7 @@ MonoBehaviour:
   Path: Assets/Plugins/Signal Fmod/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 639122427049028969
+  lastModified: 639122778050352172
   FileSizes:
   - Name: Desktop
     Value: 1757248

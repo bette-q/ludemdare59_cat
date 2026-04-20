@@ -9,11 +9,18 @@ public class GameManager : Singleton<GameManager>
     private static void BeforeSceneLoad()
     {
         AudioManager.Instance.PlayMusic();
+        SetGameCursor();
 
         foreach (var view in Object.FindObjectsOfType<BaseView>(true))
         {
             view.gameObject.SetActive(view is MenuView);
         }
+    }
+
+    private static void SetGameCursor()
+    {
+        var cursorTexture = Resources.Load<Texture2D>("handle");
+        Cursor.SetCursor(cursorTexture, new Vector2(4f, 4f), CursorMode.Auto);
     }
 
     public GameManager()

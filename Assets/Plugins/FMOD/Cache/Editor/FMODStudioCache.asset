@@ -250,7 +250,7 @@ MonoBehaviour:
   - {fileID: 8914854723288555294}
   StringsBanks:
   - {fileID: 7781474887752950967}
-  cacheTime: 639122863555897237
+  cacheTime: 639123165477380453
   cacheVersion: 131635
 --- !u!114 &1453205824905257693
 MonoBehaviour:
@@ -457,7 +457,7 @@ MonoBehaviour:
   Path: Assets/Plugins/Signal Fmod1/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 639122863555897237
+  lastModified: 639123165477380453
   FileSizes:
   - Name: Desktop
     Value: 1378
@@ -477,7 +477,7 @@ MonoBehaviour:
   Path: Assets/Plugins/Signal Fmod1/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 639122863555887246
+  lastModified: 639123165477370422
   FileSizes:
   - Name: Desktop
     Value: 1757248

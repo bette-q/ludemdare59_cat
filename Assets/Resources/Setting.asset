@@ -16,20 +16,30 @@ MonoBehaviour:
   CatAppearanceDuration: 6
   DefaultCatSpawnInterval: 5
   CatSpawnIntervals:
-  - MaxRemainingTime: 30
-    MinRemainingTime: 15
+  - MaxRemainingTime: 90
+    MinRemainingTime: 80
     MinInterval: 5
     MaxInterval: 6
     CatAppearanceDuration: 5
-  - MaxRemainingTime: 15
+  - MaxRemainingTime: 80
+    MinRemainingTime: 60
+    MinInterval: 2
+    MaxInterval: 4
+    CatAppearanceDuration: 4
+  - MaxRemainingTime: 60
+    MinRemainingTime: 30
+    MinInterval: 1
+    MaxInterval: 3
+    CatAppearanceDuration: 5
+  - MaxRemainingTime: 30
     MinRemainingTime: 0
-    MinInterval: 3
+    MinInterval: 2
     MaxInterval: 4
     CatAppearanceDuration: 4
   SpecialCatSpawnConfigs:
   - MaxRemainingTime: 30
     MinRemainingTime: 0
-    MinInterval: 6
-    MaxInterval: 10
-    CatAppearanceDuration: 8
+    MinInterval: 3
+    MaxInterval: 6
+    CatAppearanceDuration: 6
     SpecialFurnitureFailDuration: 5

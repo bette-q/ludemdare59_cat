@@ -38,9 +38,13 @@ public class GameManager : Singleton<GameManager>
 
     public void OpenView<T>() where T : BaseView
     {
-        if (typeof(T) != typeof(MainView))
+        if (typeof(T) == typeof(MenuView) || typeof(T) == typeof(GuideView))
         {
             AudioManager.Instance.PlayMenuMusic();
+        }
+        else if (typeof(T) == typeof(MainView))
+        {
+            AudioManager.Instance.StopAndResetMusic();
         }
 
         foreach (var kvp in _allViews)

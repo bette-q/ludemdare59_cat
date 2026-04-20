@@ -20,8 +20,13 @@ public class AudioManager : Singleton<AudioManager>
     private const string MusicTransitionParameter = "Transition";
     private const string MusicMenuTransition = "Menu";
     private const string MusicInGameTransition = "InGame";
+    private const string MasterBusPath = "bus:/";
 
     private EventInstance _musicInstance;
+    private Bus _masterBus;
+    private float _masterVolume = 1f;
+
+    public float MasterVolume => _masterVolume;
 
     public void PlayCatLoad()
     {
@@ -106,31 +111,90 @@ public class AudioManager : Singleton<AudioManager>
             return;
         }
 
-        _musicInstance = RuntimeManager.CreateInstance(MusicEvent);
-        SetMusicTransition(MusicMenuTransition);
-        _musicInstance.start();
+        StartMusic(MusicMenuTransition);
     }
 
     public void PlayMenuMusic()
     {
+        if (!_musicInstance.isValid())
+        {
+            StartMusic(MusicMenuTransition);
+            return;
+        }
+
         SetMusicTransition(MusicMenuTransition);
     }
 
     public void PlayInGameMusic()
     {
+        if (!_musicInstance.isValid())
+        {
+            StartMusic(MusicInGameTransition);
+            return;
+        }
+
         SetMusicTransition(MusicInGameTransition);
     }
 
+    public void RestartMenuMusic()
+    {
+        RestartMusic(MusicMenuTransition);
+    }
+
+    public void RestartInGameMusic()
+    {
+        RestartMusic(MusicInGameTransition);
+    }
+
+    public void SetMasterVolume(float volume)
+    {
+        _masterVolume = UnityEngine.Mathf.Clamp01(volume);
+        GetMasterBus().setVolume(_masterVolume);
+    }
+
     public void StopMusic()
+    {
+        StopMusic(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+    }
+
+    public void StopAndResetMusic()
+    {
+        StopMusic(FMOD.Studio.STOP_MODE.IMMEDIATE);
+    }
+
+    private void StopMusic(FMOD.Studio.STOP_MODE stopMode)
     {
         if (!_musicInstance.isValid())
         {
             return;
         }
 
-        _musicInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+        _musicInstance.stop(stopMode);
         _musicInstance.release();
         _musicInstance.clearHandle();
+    }
+
+    private void RestartMusic(string transition)
+    {
+        StopAndResetMusic();
+        StartMusic(transition);
+    }
+
+    private void StartMusic(string transition)
+    {
+        _musicInstance = RuntimeManager.CreateInstance(MusicEvent);
+        SetMusicTransition(transition);
+        _musicInstance.start();
+    }
+
+    private Bus GetMasterBus()
+    {
+        if (!_masterBus.isValid())
+        {
+            _masterBus = RuntimeManager.GetBus(MasterBusPath);
+        }
+
+        return _masterBus;
     }
 
     private void SetMusicTransition(string transition)

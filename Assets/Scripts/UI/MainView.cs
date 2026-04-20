@@ -119,7 +119,7 @@ public class MainView : BaseView
     private void GameStart()
     {
         _isGameRunning = true;
-        AudioManager.Instance.PlayInGameMusic();
+        AudioManager.Instance.RestartInGameMusic();
         CatManager.Instance.StartGame(this);
         _countDownCoroutine = StartCoroutine(CountDown());
     }
@@ -159,6 +159,8 @@ public class MainView : BaseView
         ClearDragState();
         CatManager.Instance.StopGame();
         CatManager.Instance.HideAllCats();
+        CatManager.Instance.ClearBrokenFurniture();
+        AudioManager.Instance.StopAndResetMusic();
         GameManager.Instance.OpenView<EndView>();
         var view = GameManager.Instance.GetView<EndView>();
         view.Show(_successCount, _failCount);

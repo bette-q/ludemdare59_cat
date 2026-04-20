@@ -10,8 +10,17 @@ public class MenuView : BaseView
     [SerializeField] private Button _startButton;
     [SerializeField] private Button _endButton;
 
+    private Slider _volumeSlider;
+
     private void Awake()
     {
+        _volumeSlider = transform.Find("volume/Slider")?.GetComponent<Slider>();
+        if (_volumeSlider != null)
+        {
+            _volumeSlider.SetValueWithoutNotify(AudioManager.Instance.MasterVolume);
+            _volumeSlider.onValueChanged.AddListener(AudioManager.Instance.SetMasterVolume);
+        }
+
         _startButton.onClick.AddListener(() =>
         {
             AudioManager.Instance.PlayClick();

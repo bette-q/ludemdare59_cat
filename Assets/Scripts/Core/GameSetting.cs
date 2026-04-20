@@ -32,6 +32,7 @@ public class SpecialCatSpawnConfig
     [Header("最小刷特殊猫间隔")] public float MinInterval = 8f;
     [Header("最大刷特殊猫间隔")] public float MaxInterval = 12f;
     [Header("特殊猫显示时长")] public float CatAppearanceDuration = 5f;
+    [Header("特殊家具失败显示时长")] public float SpecialFurnitureFailDuration = 5f;
 
     public bool IsInRange(int remainingTime)
     {
@@ -146,6 +147,17 @@ public class GameSetting : ScriptableObject
         if (config != null)
         {
             return Mathf.Max(0.1f, config.CatAppearanceDuration);
+        }
+
+        return -1f;
+    }
+
+    public float GetSpecialFurnitureFailDuration(int remainingTime)
+    {
+        var config = GetSpecialCatSpawnConfig(remainingTime);
+        if (config != null)
+        {
+            return Mathf.Max(0.1f, config.SpecialFurnitureFailDuration);
         }
 
         return -1f;

@@ -13,13 +13,13 @@ public class SpecialCat : MonoBehaviour
     private SpecialCatDefinition _currentDefinition;
     private CatRequestDefinition _leftRequest;
     private CatRequestDefinition _rightRequest;
-    private Furniture _currentFurniture;
     private Coroutine _hideCoroutine;
     private Coroutine _resolveCoroutine;
     private Coroutine _requestAudioCoroutine;
     private bool _acceptsItemDrop;
     private bool _leftResolved;
     private bool _rightResolved;
+    private float _specialFurnitureFailDuration;
 
     private void OnEnable()
     {
@@ -38,21 +38,21 @@ public class SpecialCat : MonoBehaviour
         _currentDefinition = null;
         _leftRequest = null;
         _rightRequest = null;
-        _currentFurniture = null;
         _acceptsItemDrop = false;
         _leftResolved = false;
         _rightResolved = false;
+        _specialFurnitureFailDuration = 0f;
     }
 
-    public void Show(SpecialCatDefinition definition, Furniture furniture, float duration)
+    public void Show(SpecialCatDefinition definition, float duration, float specialFurnitureFailDuration)
     {
         _currentDefinition = definition;
         _leftRequest = definition.LeftRequest;
         _rightRequest = definition.RightRequest;
-        _currentFurniture = furniture;
         _acceptsItemDrop = true;
         _leftResolved = false;
         _rightResolved = false;
+        _specialFurnitureFailDuration = specialFurnitureFailDuration;
 
         StopResolveCoroutine();
         StopRequestAudioCoroutine();
@@ -194,6 +194,7 @@ public class SpecialCat : MonoBehaviour
         }
 
         _resolveCoroutine = StartCoroutine(PlayResolveFlow(isSuccess));
+        GameEvents.Instance.OnSpecialCatResolved?.Invoke(isSuccess, _specialFurnitureFailDuration);
     }
 
     private IEnumerator PlayResolveFlow(bool isSuccess)
@@ -207,23 +208,12 @@ public class SpecialCat : MonoBehaviour
         {
             AudioManager.Instance.PlayCorrectMatch();
         }
-        else
-        {
-            _currentFurniture?.ShowTilt();
-        }
 
         yield return new WaitForSeconds(_validationSpriteDuration);
 
         if (_catSpriteRenderer != null)
         {
             _catSpriteRenderer.sprite = _currentDefinition?.RunningSprite;
-        }
-
-        if (!isSuccess)
-        {
-            AudioManager.Instance.PlayGlassBreak();
-            CatManager.Instance.SpawnBrokenFurniture(_currentFurniture);
-            _currentFurniture.HideFurniture();
         }
 
         yield return new WaitForSeconds(_runningSpriteDuration);

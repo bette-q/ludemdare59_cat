@@ -14,6 +14,8 @@ public class MainView : BaseView
     [SerializeField] private TMP_Text _timeText;
     [SerializeField] private TMP_Text _successText;
     [SerializeField] private TMP_Text _failText;
+    [SerializeField] private Image _readyGoImage;
+    [SerializeField] private float _readyGoDuration = 1f;
 
     public E_CatItem CurCatItem { get; private set; }
     public bool IsDragging { get; private set; }
@@ -21,6 +23,7 @@ public class MainView : BaseView
 
     private Coroutine _countDownCoroutine;
     private Coroutine _spawnCatCoroutine;
+    private Coroutine _startGameCoroutine;
 
     private int _successCount;
     private int _failCount;
@@ -44,6 +47,7 @@ public class MainView : BaseView
 
     private void OnDragBegin(E_CatItem itemType, GameObject go, PointerEventData ev)
     {
+        AudioManager.Instance.PlayClick();
         Clear();
         IsDragging = true;
         CurCatItem = itemType;
@@ -75,11 +79,12 @@ public class MainView : BaseView
 
     public void ShowBeforeStart()
     {
-        GameStart();
+        StartGameSequence();
     }
 
-    private void GameStart()
+    private void StartGameSequence()
     {
+        StopStartGameSequence();
         StopCountDown();
         StopSpawnCat();
         ClearDragState();
@@ -88,10 +93,28 @@ public class MainView : BaseView
         _successCount = 0;
         _failCount = 0;
         _remainingTime = Setting.CountDownTime;
-        _isGameRunning = true;
+        _isGameRunning = false;
         _successText.SetText(_successCount.ToString());
         _failText.SetText(_failCount.ToString());
         _timeText.SetText(_remainingTime.ToString());
+        _readyGoImage.gameObject.SetActive(false);
+
+        _startGameCoroutine = StartCoroutine(StartGameRoutine());
+    }
+
+    private IEnumerator StartGameRoutine()
+    {
+        _readyGoImage.gameObject.SetActive(true);
+        yield return new WaitForSeconds(_readyGoDuration);
+        _readyGoImage.gameObject.SetActive(false);
+
+        _startGameCoroutine = null;
+        GameStart();
+    }
+
+    private void GameStart()
+    {
+        _isGameRunning = true;
         SpecialCatManager.Instance.StartGame(this);
         SpawnCatOnce();
         _countDownCoroutine = StartCoroutine(CountDown());
@@ -149,6 +172,7 @@ public class MainView : BaseView
     private void EndGame()
     {
         _isGameRunning = false;
+        StopStartGameSequence();
         StopSpawnCat();
         ClearDragState();
         CatManager.Instance.HideAllCats();
@@ -199,11 +223,23 @@ public class MainView : BaseView
         _spawnCatCoroutine = null;
     }
 
+    private void StopStartGameSequence()
+    {
+        if (_startGameCoroutine == null)
+        {
+            return;
+        }
+
+        StopCoroutine(_startGameCoroutine);
+        _startGameCoroutine = null;
+    }
+
 
     private void OnDestroy()
     {
         SpecialCatManager.Instance.StopGame();
         ClearDragState();
+        StopStartGameSequence();
         StopCountDown();
         StopSpawnCat();
     }

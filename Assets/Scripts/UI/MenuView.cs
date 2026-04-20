@@ -12,9 +12,14 @@ public class MenuView : BaseView
 
     private void Awake()
     {
-        _startButton.onClick.AddListener(() => { GameManager.Instance.OpenView<GuideView>(); });
+        _startButton.onClick.AddListener(() =>
+        {
+            AudioManager.Instance.PlayClick();
+            GameManager.Instance.OpenView<GuideView>();
+        });
         _endButton.onClick.AddListener(() =>
         {
+            AudioManager.Instance.PlayClick();
 #if UNITY_EDITOR
             EditorApplication.isPlaying = false;
 #else

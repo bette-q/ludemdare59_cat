@@ -18,6 +18,7 @@ public class GuideView : BaseView
     {
         _startButton.onClick.AddListener(() =>
         {
+            AudioManager.Instance.PlayClick();
             GameManager.Instance.OpenView<MainView>();
             var view = GameManager.Instance.GetView<MainView>();
             view.ShowBeforeStart();
@@ -29,6 +30,8 @@ public class GuideView : BaseView
 
     private void OnPetButtonClicked()
     {
+        AudioManager.Instance.PlayClick();
+
         if (_petNextIsFirstSound)
         {
             AudioManager.Instance.PlayAttention1();
@@ -43,6 +46,8 @@ public class GuideView : BaseView
 
     private void OnFoodButtonClicked()
     {
+        AudioManager.Instance.PlayClick();
+
         if (_foodNextIsFirstSound)
         {
             AudioManager.Instance.PlayFood1();
@@ -57,6 +62,8 @@ public class GuideView : BaseView
 
     private void OnToyButtonClicked()
     {
+        AudioManager.Instance.PlayClick();
+
         if (_toyNextIsFirstSound)
         {
             AudioManager.Instance.PlayToy1();

@@ -3,6 +3,7 @@ using System;
 public class GameEvents : Singleton<GameEvents>
 {
     public Action<bool> OnCatInteraction;
+    public Action<bool, float> OnSpecialCatResolved;
 
     public GameEvents()
     {
@@ -12,5 +13,6 @@ public class GameEvents : Singleton<GameEvents>
     private void ClearAll()
     {
         OnCatInteraction = null;
+        OnSpecialCatResolved = null;
     }
 }

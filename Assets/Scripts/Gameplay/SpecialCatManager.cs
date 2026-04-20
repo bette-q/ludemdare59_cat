@@ -100,31 +100,32 @@ public class SpecialCatManager : Singleton<SpecialCatManager>
             }
 
             var appearanceDuration = GameSettings.GameSetting.GetSpecialCatAppearanceDuration(_mainView.RemainingTime);
-            if (appearanceDuration < 0f)
+            var furnitureFailDuration = GameSettings.GameSetting.GetSpecialFurnitureFailDuration(_mainView.RemainingTime);
+            if (appearanceDuration < 0f || furnitureFailDuration < 0f)
             {
                 continue;
             }
 
-            SpawnSpecialCat(appearanceDuration);
+            SpawnSpecialCat(appearanceDuration, furnitureFailDuration);
         }
 
         _scheduleCoroutine = null;
     }
 
-    private void SpawnSpecialCat(float appearanceDuration)
+    private void SpawnSpecialCat(float appearanceDuration, float furnitureFailDuration)
     {
         if (_specialCatPrefab == null)
         {
             return;
         }
 
-        if (!TryGetAvailableSpecialSpawnPoint(out var spawnPoint, out var furnitureDefinition))
+        if (!TryGetAvailableSpecialSpawnPoint(out var spawnPoint))
         {
             return;
         }
 
         var definition = GetRandomSpecialCatDefinition();
-        if (definition == null || furnitureDefinition == null)
+        if (definition == null)
         {
             return;
         }
@@ -135,15 +136,13 @@ public class SpecialCatManager : Singleton<SpecialCatManager>
         specialCatGroup.SetActive(true);
 
         var specialCat = specialCatGroup.GetComponentInChildren<SpecialCat>(true);
-        var furniture = specialCatGroup.GetComponentInChildren<Furniture>(true);
-        if (specialCat == null || furniture == null)
+        if (specialCat == null)
         {
             Object.Destroy(specialCatGroup);
             return;
         }
 
-        furniture.ResetFurniture(furnitureDefinition);
-        specialCat.Show(definition, furniture, appearanceDuration);
+        specialCat.Show(definition, appearanceDuration, furnitureFailDuration);
         _activeSpecialCat = specialCat;
         _activeSpawnPoint = spawnPoint;
     }
@@ -158,7 +157,7 @@ public class SpecialCatManager : Singleton<SpecialCatManager>
         return _specialCatDefinitions[Random.Range(0, _specialCatDefinitions.Length)];
     }
 
-    private bool TryGetAvailableSpecialSpawnPoint(out Transform spawnTransform, out FurnitureDefinition furnitureDefinition)
+    private bool TryGetAvailableSpecialSpawnPoint(out Transform spawnTransform)
     {
         var candidates = new List<SpawnPointInfo>();
         for (var i = 0; i < _spawnPoints.Count; i++)
@@ -169,7 +168,7 @@ public class SpecialCatManager : Singleton<SpecialCatManager>
                 continue;
             }
 
-            if (!point.SpawnPos.CanSpawnSpecial || point.SpawnPos.SpecialFurnitureDefinition == null)
+            if (!point.SpawnPos.CanSpawnSpecial)
             {
                 continue;
             }
@@ -185,13 +184,11 @@ public class SpecialCatManager : Singleton<SpecialCatManager>
         if (candidates.Count == 0)
         {
             spawnTransform = null;
-            furnitureDefinition = null;
             return false;
         }
 
         var selected = candidates[Random.Range(0, candidates.Count)];
         spawnTransform = selected.Transform;
-        furnitureDefinition = selected.SpawnPos.SpecialFurnitureDefinition;
         return true;
     }
 

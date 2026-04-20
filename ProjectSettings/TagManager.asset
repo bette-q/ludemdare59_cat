@@ -47,9 +47,6 @@ TagManager:
   - name: Middle
     uniqueID: 1458397713
     locked: 0
-  - name: Foreground
-    uniqueID: 2844929165
-    locked: 0
   - name: Explosion
     uniqueID: 610911035
     locked: 0

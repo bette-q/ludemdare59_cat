@@ -1,6 +1,5 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 public class SpecialCat : MonoBehaviour
 {
@@ -9,6 +8,7 @@ public class SpecialCat : MonoBehaviour
     [SerializeField] private SpriteRenderer _rightBubbleSpriteRenderer;
     [SerializeField] private float _validationSpriteDuration = 0.4f;
     [SerializeField] private float _runningSpriteDuration = 0.4f;
+    [SerializeField] private float _interactionRadius = 5f;
 
     private SpecialCatDefinition _currentDefinition;
     private CatRequestDefinition _leftRequest;
@@ -21,18 +21,10 @@ public class SpecialCat : MonoBehaviour
     private bool _rightResolved;
     private float _specialFurnitureFailDuration;
     private SpecialFurniture _pairedSpecialFurniture;
-
-    private void OnEnable()
-    {
-        var listener = EventTriggerListener.Get(gameObject);
-        listener.OnDropEvent -= OnDrop;
-        listener.OnDropEvent += OnDrop;
-    }
+    public bool CanReceiveItem => _acceptsItemDrop;
 
     private void OnDisable()
     {
-        var listener = EventTriggerListener.Get(gameObject);
-        listener.OnDropEvent -= OnDrop;
         StopHideCoroutine();
         StopResolveCoroutine();
         StopRequestAudioCoroutine();
@@ -114,15 +106,14 @@ public class SpecialCat : MonoBehaviour
         }
     }
 
-    private void OnDrop(GameObject go, PointerEventData ev)
+    public bool ContainsWorldPoint(Vector2 worldPoint)
     {
-        var view = GameManager.Instance.GetView<MainView>();
-        if (view == null || !_acceptsItemDrop)
-        {
-            return;
-        }
+        return Vector2.Distance(worldPoint, transform.position) <= _interactionRadius;
+    }
 
-        if (!view.TryConsumeDrag(out var catItem))
+    public void ReceiveItem(E_CatItem catItem)
+    {
+        if (!_acceptsItemDrop)
         {
             return;
         }

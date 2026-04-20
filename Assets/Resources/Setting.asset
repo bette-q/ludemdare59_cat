@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Setting
   m_EditorClassIdentifier: 
   CountDownTime: 30
-  CatAppearanceDuration: 5
+  CatAppearanceDuration: 6
   DefaultCatSpawnInterval: 5
   CatSpawnIntervals:
   - MaxRemainingTime: 30
@@ -29,6 +29,7 @@ MonoBehaviour:
   SpecialCatSpawnConfigs:
   - MaxRemainingTime: 30
     MinRemainingTime: 0
-    MinInterval: 1
-    MaxInterval: 2
-    CatAppearanceDuration: 5
+    MinInterval: 6
+    MaxInterval: 10
+    CatAppearanceDuration: 8
+    SpecialFurnitureFailDuration: 5

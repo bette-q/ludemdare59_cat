@@ -85,6 +85,72 @@ public class CatManager : Singleton<CatManager>
         return SpawnNormalCatOnce(catDuration);
     }
 
+    public bool TryReceiveItemAtScreenPosition(Vector2 screenPosition, E_CatItem catItem)
+    {
+        var camera = Camera.main;
+        if (camera == null)
+        {
+            return false;
+        }
+
+        var worldPosition = camera.ScreenToWorldPoint(screenPosition);
+        return TryReceiveItemAtWorldPosition(worldPosition, catItem);
+    }
+
+    private bool TryReceiveItemAtWorldPosition(Vector2 worldPosition, E_CatItem catItem)
+    {
+        Cat nearestCat = null;
+        SpecialCat nearestSpecialCat = null;
+        var nearestDistance = float.MaxValue;
+
+        for (var i = 0; i < _spawn.childCount; i++)
+        {
+            var child = _spawn.GetChild(i);
+            if (!child.gameObject.activeSelf)
+            {
+                continue;
+            }
+
+            var specialCat = child.GetComponentInChildren<SpecialCat>(true);
+            if (specialCat != null && specialCat.CanReceiveItem && specialCat.ContainsWorldPoint(worldPosition))
+            {
+                var distance = Vector2.Distance(worldPosition, specialCat.transform.position);
+                if (distance < nearestDistance)
+                {
+                    nearestDistance = distance;
+                    nearestCat = null;
+                    nearestSpecialCat = specialCat;
+                }
+            }
+
+            var cat = child.GetComponentInChildren<Cat>(true);
+            if (cat != null && cat.CanReceiveItem && cat.ContainsWorldPoint(worldPosition))
+            {
+                var distance = Vector2.Distance(worldPosition, cat.transform.position);
+                if (distance < nearestDistance)
+                {
+                    nearestDistance = distance;
+                    nearestCat = cat;
+                    nearestSpecialCat = null;
+                }
+            }
+        }
+
+        if (nearestSpecialCat != null)
+        {
+            nearestSpecialCat.ReceiveItem(catItem);
+            return true;
+        }
+
+        if (nearestCat != null)
+        {
+            nearestCat.ReceiveItem(catItem);
+            return true;
+        }
+
+        return false;
+    }
+
     public void SpawnBrokenFurniture(Furniture furniture)
     {
         var sourceRenderer = furniture.SpriteRenderer;

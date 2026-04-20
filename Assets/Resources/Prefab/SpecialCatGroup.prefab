@@ -49,6 +49,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SpawnPointKind: 1
   AllowedFurnitureDefinitions: []
+  PairedSpecialFurniture: {fileID: 0}
 --- !u!1 &1000000000000000010
 GameObject:
   m_ObjectHideFlags: 0
@@ -166,6 +167,7 @@ MonoBehaviour:
   _rightBubbleSpriteRenderer: {fileID: 1000000000000000032}
   _validationSpriteDuration: 0.4
   _runningSpriteDuration: 0.4
+  _interactionRadius: 5
 --- !u!61 &1169331586752302546
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -173,7 +175,7 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1000000000000000010}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:

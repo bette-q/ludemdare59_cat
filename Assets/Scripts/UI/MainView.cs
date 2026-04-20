@@ -63,6 +63,11 @@ public class MainView : BaseView
 
     private void OnDragEnd(E_CatItem itemType, GameObject go, PointerEventData ev)
     {
+        if (IsDragging)
+        {
+            CatManager.Instance.TryReceiveItemAtScreenPosition(ev.position, CurCatItem);
+        }
+
         IsDragging = false;
         Clear();
     }
@@ -157,19 +162,6 @@ public class MainView : BaseView
         GameManager.Instance.OpenView<EndView>();
         var view = GameManager.Instance.GetView<EndView>();
         view.Show(_successCount, _failCount);
-    }
-
-    public bool TryConsumeDrag(out E_CatItem catItem)
-    {
-        catItem = CurCatItem;
-        if (!IsDragging)
-        {
-            return false;
-        }
-
-        IsDragging = false;
-        Clear();
-        return true;
     }
 
     private void ClearDragState()

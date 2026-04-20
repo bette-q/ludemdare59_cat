@@ -1,6 +1,5 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 public class Cat : MonoBehaviour
 {
@@ -8,49 +7,34 @@ public class Cat : MonoBehaviour
     [SerializeField] private SpriteRenderer _bubbleSpriteRenderer;
     [SerializeField] private float _validationSpriteDuration = 0.4f;
     [SerializeField] private float _runningSpriteDuration = 0.4f;
+    [SerializeField] private float _interactionRadius = 2.5f;
 
     private CatDefinition _currentDefinition;
     private CatRequestDefinition _currentRequest;
     private Furniture _currentFurniture;
     private Coroutine _hideCoroutine;
     private Coroutine _resolveCoroutine;
-    private Coroutine _bubbleCoroutine;
     private bool _acceptsItemDrop;
-
-    private void OnEnable()
-    {
-        var listener = EventTriggerListener.Get(gameObject);
-        listener.OnDropEvent -= OnDrop;
-        listener.OnDropEvent += OnDrop;
-    }
+    public bool CanReceiveItem => _acceptsItemDrop;
 
     private void OnDisable()
     {
-        var listener = EventTriggerListener.Get(gameObject);
-        listener.OnDropEvent -= OnDrop;
         StopHideCoroutine();
         StopResolveCoroutine();
-        StopBubbleCoroutine();
         _currentDefinition = null;
         _currentRequest = null;
         _currentFurniture = null;
         _acceptsItemDrop = false;
     }
 
-    private void OnDrop(GameObject go, PointerEventData ev)
+    public bool ContainsWorldPoint(Vector2 worldPoint)
     {
-        var view = GameManager.Instance.GetView<MainView>();
-        if (view == null)
-        {
-            return;
-        }
+        return Vector2.Distance(worldPoint, transform.position) <= _interactionRadius;
+    }
 
+    public void ReceiveItem(E_CatItem catItem)
+    {
         if (!_acceptsItemDrop)
-        {
-            return;
-        }
-
-        if (!view.TryConsumeDrag(out var catItem))
         {
             return;
         }
@@ -68,8 +52,7 @@ public class Cat : MonoBehaviour
         StopResolveCoroutine();
         ApplySprites(definition, request);
         AudioManager.Instance.PlayCatLoad();
-        StopBubbleCoroutine();
-        _bubbleCoroutine = StartCoroutine(HideBubbleAfterRequest(AudioManager.Instance.PlayCatRequest(request.RequestSound)));
+        AudioManager.Instance.PlayCatRequest(request.RequestSound);
         StopHideCoroutine();
         _hideCoroutine = StartCoroutine(HideAfter(duration));
     }
@@ -95,20 +78,6 @@ public class Cat : MonoBehaviour
         Resolve(false);
     }
 
-    private IEnumerator HideBubbleAfterRequest(float duration)
-    {
-        if (duration > 0f)
-        {
-            yield return new WaitForSeconds(duration);
-        }
-
-        _bubbleCoroutine = null;
-        if (_acceptsItemDrop && _bubbleSpriteRenderer != null)
-        {
-            _bubbleSpriteRenderer.gameObject.SetActive(false);
-        }
-    }
-
     private void Resolve(bool isSuccess)
     {
         if (!_acceptsItemDrop)
@@ -118,7 +87,6 @@ public class Cat : MonoBehaviour
 
         _acceptsItemDrop = false;
         StopHideCoroutine();
-        StopBubbleCoroutine();
         Debug.Log($"Cat Resolve: target={gameObject.name}, success={isSuccess}");
 
         var view = GameManager.Instance.GetView<MainView>();
@@ -198,14 +166,4 @@ public class Cat : MonoBehaviour
         _resolveCoroutine = null;
     }
 
-    private void StopBubbleCoroutine()
-    {
-        if (_bubbleCoroutine == null)
-        {
-            return;
-        }
-
-        StopCoroutine(_bubbleCoroutine);
-        _bubbleCoroutine = null;
-    }
 }

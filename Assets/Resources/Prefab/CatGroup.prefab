@@ -94,7 +94,7 @@ CircleCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1470023166191564649}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -121,7 +121,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 6
+  m_Radius: 8
 --- !u!114 &574560732936707135
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -151,6 +151,7 @@ MonoBehaviour:
   _bubbleSpriteRenderer: {fileID: 5823312571392247858}
   _validationSpriteDuration: 0.4
   _runningSpriteDuration: 0.4
+  _interactionRadius: 3
 --- !u!1 &1525547948640168524
 GameObject:
   m_ObjectHideFlags: 0
@@ -287,6 +288,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 41a0c6d2aff47d345948d7cac48862f0, type: 2}
   - {fileID: 11400000, guid: ac7a8c0b250b8ac499b6dd107bae1ad4, type: 2}
   - {fileID: 11400000, guid: 73024343a73f7ae4584dc8ae406eeb58, type: 2}
+  PairedSpecialFurniture: {fileID: 0}
 --- !u!1 &8024853304272686368
 GameObject:
   m_ObjectHideFlags: 0

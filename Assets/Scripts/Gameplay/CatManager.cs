@@ -219,6 +219,7 @@ public class CatManager : Singleton<CatManager>
         }
 
         specialCatGroup.gameObject.SetActive(true);
+        var spawnPos = specialCatGroup.GetComponent<SpawnPos>();
         var specialCat = specialCatGroup.GetComponentInChildren<SpecialCat>(true);
         if (specialCat == null)
         {
@@ -226,7 +227,7 @@ public class CatManager : Singleton<CatManager>
             return;
         }
 
-        specialCat.Show(definition, appearanceDuration, furnitureFailDuration);
+        specialCat.Show(definition, appearanceDuration, furnitureFailDuration, spawnPos.PairedSpecialFurniture);
         _activeSpecialCat = specialCat;
         _activeSpecialSpawnPoint = specialCatGroup;
     }

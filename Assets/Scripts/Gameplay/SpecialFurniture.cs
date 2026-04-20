@@ -10,33 +10,21 @@ public class SpecialFurniture : MonoBehaviour
 
     private void OnEnable()
     {
-        GameEvents.Instance.OnSpecialCatResolved += OnSpecialCatResolved;
         ApplyDefaultSprite();
     }
 
     private void OnDisable()
     {
-        GameEvents.Instance.OnSpecialCatResolved -= OnSpecialCatResolved;
         StopRestoreCoroutine();
     }
 
-    private void OnSpecialCatResolved(bool isSuccess, float failDuration)
-    {
-        if (isSuccess)
-        {
-            return;
-        }
-
-        ShowFailSprite(failDuration);
-    }
-
-    private void ShowFailSprite(float failDuration)
+    public void ShowFail(float failDuration)
     {
         StopRestoreCoroutine();
 
         if (_spriteRenderer != null && _definition != null)
         {
-            _spriteRenderer.sprite = _definition.TiltSprite;
+            _spriteRenderer.sprite = _definition.BrokenSprite;
         }
 
         _restoreCoroutine = StartCoroutine(RestoreAfter(failDuration));

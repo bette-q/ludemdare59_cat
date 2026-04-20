@@ -10,6 +10,7 @@ public class SpawnPos : MonoBehaviour
 {
     public E_SpawnPointKind SpawnPointKind;
     public FurnitureDefinition[] AllowedFurnitureDefinitions;
+    public SpecialFurniture PairedSpecialFurniture;
 
     public bool IsSpecialOnly => SpawnPointKind == E_SpawnPointKind.Special;
 }

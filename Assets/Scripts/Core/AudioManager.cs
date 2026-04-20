@@ -3,13 +3,13 @@ using FMODUnity;
 
 public class AudioManager : Singleton<AudioManager>
 {
-    private const string CatLoadEvent = "event:/CatSFX/SFX/Catload";
-    private const string ClickEvent = "event:/CatSFX/SFX/Click";
-    private const string CorrectMatchEvent = "event:/CatSFX/SFX/Correctmatch";
-    private const string ExplosionEvent = "event:/CatSFX/SFX/Explosion";
-    private const string FailureEvent = "event:/CatSFX/SFX/Faliure";
-    private const string GlassBreakEvent = "event:/CatSFX/SFX/Glassbreak";
-    private const string VictoryEvent = "event:/CatSFX/SFX/Victory";
+    private const string CatLoadEvent = "event:/SFX/Catload";
+    private const string ClickEvent = "event:/SFX/Click";
+    private const string CorrectMatchEvent = "event:/SFX/Correctmatch";
+    private const string ExplosionEvent = "event:/SFX/Explosion";
+    private const string FailureEvent = "event:/SFX/Faliure";
+    private const string GlassBreakEvent = "event:/SFX/Glassbreak";
+    private const string VictoryEvent = "event:/SFX/Victory";
     private const string Attention1Event = "event:/CatSFX/Attention1";
     private const string Attention2Event = "event:/CatSFX/Attention2";
     private const string Food1Event = "event:/CatSFX/Food1";

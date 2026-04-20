@@ -20,6 +20,7 @@ public class SpecialCat : MonoBehaviour
     private bool _leftResolved;
     private bool _rightResolved;
     private float _specialFurnitureFailDuration;
+    private SpecialFurniture _pairedSpecialFurniture;
 
     private void OnEnable()
     {
@@ -42,9 +43,14 @@ public class SpecialCat : MonoBehaviour
         _leftResolved = false;
         _rightResolved = false;
         _specialFurnitureFailDuration = 0f;
+        _pairedSpecialFurniture = null;
     }
 
-    public void Show(SpecialCatDefinition definition, float duration, float specialFurnitureFailDuration)
+    public void Show(
+        SpecialCatDefinition definition,
+        float duration,
+        float specialFurnitureFailDuration,
+        SpecialFurniture pairedSpecialFurniture)
     {
         _currentDefinition = definition;
         _leftRequest = definition.LeftRequest;
@@ -53,6 +59,7 @@ public class SpecialCat : MonoBehaviour
         _leftResolved = false;
         _rightResolved = false;
         _specialFurnitureFailDuration = specialFurnitureFailDuration;
+        _pairedSpecialFurniture = pairedSpecialFurniture;
 
         StopResolveCoroutine();
         StopRequestAudioCoroutine();
@@ -194,7 +201,10 @@ public class SpecialCat : MonoBehaviour
         }
 
         _resolveCoroutine = StartCoroutine(PlayResolveFlow(isSuccess));
-        GameEvents.Instance.OnSpecialCatResolved?.Invoke(isSuccess, _specialFurnitureFailDuration);
+        if (!isSuccess && _pairedSpecialFurniture != null)
+        {
+            _pairedSpecialFurniture.ShowFail(_specialFurnitureFailDuration);
+        }
     }
 
     private IEnumerator PlayResolveFlow(bool isSuccess)

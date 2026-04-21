@@ -348,7 +348,7 @@ Transform:
   m_GameObject: {fileID: 8024853304272686368}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.98, y: -0.38, z: 0}
+  m_LocalPosition: {x: 1.95, y: -0.5, z: 0}
   m_LocalScale: {x: 0.1, y: 0.1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -420,5 +420,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _spriteRenderer: {fileID: 5820466641593681575}
   _fallPoint: {fileID: 3099710223528726725}
-  _brokenDropDistance: 0.75
   _brokenFallSpeed: 6

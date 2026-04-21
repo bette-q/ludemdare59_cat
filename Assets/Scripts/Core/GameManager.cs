@@ -8,7 +8,6 @@ public class GameManager : Singleton<GameManager>
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
     private static void BeforeSceneLoad()
     {
-        AudioManager.Instance.PlayMusic();
         SetGameCursor();
 
         foreach (var view in Object.FindObjectsOfType<BaseView>(true))
@@ -38,15 +37,6 @@ public class GameManager : Singleton<GameManager>
 
     public void OpenView<T>() where T : BaseView
     {
-        if (typeof(T) == typeof(MenuView) || typeof(T) == typeof(GuideView))
-        {
-            AudioManager.Instance.PlayMenuMusic();
-        }
-        else if (typeof(T) == typeof(MainView))
-        {
-            AudioManager.Instance.StopAndResetMusic();
-        }
-
         foreach (var kvp in _allViews)
         {
             kvp.Value.gameObject.SetActive(kvp.Value is T);

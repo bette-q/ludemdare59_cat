@@ -17,6 +17,7 @@ public class EndView : BaseView
         _returnButton.onClick.AddListener(() =>
         {
             AudioManager.Instance.PlayClick();
+            AudioManager.Instance.RestartMenuMusic();
             GameManager.Instance.OpenView<MenuView>();
         });
         _restartButton.onClick.AddListener(() =>

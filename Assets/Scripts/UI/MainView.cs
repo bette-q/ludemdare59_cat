@@ -91,6 +91,7 @@ public class MainView : BaseView
         StopStartGameSequence();
         StopCountDown();
         CatManager.Instance.StopGame();
+        AudioManager.Instance.StopAndResetMusic();
         ClearDragState();
         CatManager.Instance.HideAllCats();
         CatManager.Instance.ClearBrokenFurniture();

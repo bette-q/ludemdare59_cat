@@ -1,8 +1,17 @@
 using FMOD.Studio;
 using FMODUnity;
+using UnityEngine;
 
 public class AudioManager : Singleton<AudioManager>
 {
+    private enum InitState
+    {
+        NotStarted,
+        Loading,
+        Ready,
+        Failed
+    }
+
     private const string CatLoadEvent = "event:/SFX/Catload";
     private const string ClickEvent = "event:/SFX/Click";
     private const string CorrectMatchEvent = "event:/SFX/Correctmatch";
@@ -25,8 +34,61 @@ public class AudioManager : Singleton<AudioManager>
     private EventInstance _musicInstance;
     private Bus _masterBus;
     private float _masterVolume = 1f;
+    private InitState _initState;
 
     public float MasterVolume => _masterVolume;
+    public bool IsReady => _initState == InitState.Ready;
+
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
+    private static void StartAudioInitialization()
+    {
+        AudioStartupRunner.EnsureCreated();
+    }
+
+    public void BeginInitialization()
+    {
+        if (_initState != InitState.NotStarted)
+        {
+            return;
+        }
+
+        _initState = InitState.Loading;
+    }
+
+    public bool TryCompleteInitialization()
+    {
+        if (_initState == InitState.Ready || _initState == InitState.Failed)
+        {
+            return true;
+        }
+
+        if (_initState == InitState.NotStarted)
+        {
+            BeginInitialization();
+        }
+
+        bool banksLoaded;
+        try
+        {
+            banksLoaded = RuntimeManager.HaveMasterBanksLoaded;
+        }
+        catch (System.Exception exception)
+        {
+            _initState = InitState.Failed;
+            Debug.LogException(exception);
+            return true;
+        }
+
+        if (!banksLoaded)
+        {
+            return false;
+        }
+
+        _initState = InitState.Ready;
+        SetMasterVolume(_masterVolume);
+        PlayMenuMusic();
+        return true;
+    }
 
     public void PlayCatLoad()
     {
@@ -95,6 +157,11 @@ public class AudioManager : Singleton<AudioManager>
 
     public float PlayCatRequest(E_CatRequestSound requestSound)
     {
+        if (!CanUseAudio())
+        {
+            return 0f;
+        }
+
         var eventPath = GetCatRequestEventPath(requestSound);
         if (string.IsNullOrEmpty(eventPath))
         {
@@ -106,16 +173,16 @@ public class AudioManager : Singleton<AudioManager>
 
     public void PlayMusic()
     {
-        if (_musicInstance.isValid())
-        {
-            return;
-        }
-
-        StartMusic(MusicMenuTransition);
+        PlayMenuMusic();
     }
 
     public void PlayMenuMusic()
     {
+        if (!CanUseAudio())
+        {
+            return;
+        }
+
         if (!_musicInstance.isValid())
         {
             StartMusic(MusicMenuTransition);
@@ -127,6 +194,11 @@ public class AudioManager : Singleton<AudioManager>
 
     public void PlayInGameMusic()
     {
+        if (!CanUseAudio())
+        {
+            return;
+        }
+
         if (!_musicInstance.isValid())
         {
             StartMusic(MusicInGameTransition);
@@ -148,7 +220,12 @@ public class AudioManager : Singleton<AudioManager>
 
     public void SetMasterVolume(float volume)
     {
-        _masterVolume = UnityEngine.Mathf.Clamp01(volume);
+        _masterVolume = Mathf.Clamp01(volume);
+        if (!CanUseAudio())
+        {
+            return;
+        }
+
         GetMasterBus().setVolume(_masterVolume);
     }
 
@@ -176,6 +253,11 @@ public class AudioManager : Singleton<AudioManager>
 
     private void RestartMusic(string transition)
     {
+        if (!CanUseAudio())
+        {
+            return;
+        }
+
         StopAndResetMusic();
         StartMusic(transition);
     }
@@ -209,6 +291,11 @@ public class AudioManager : Singleton<AudioManager>
 
     private static void PlayOneShot(string eventPath)
     {
+        if (!AudioManager.Instance.CanUseAudio())
+        {
+            return;
+        }
+
         RuntimeManager.PlayOneShot(eventPath);
     }
 
@@ -235,5 +322,59 @@ public class AudioManager : Singleton<AudioManager>
         instance.start();
         instance.release();
         return lengthMs / 1000f;
+    }
+
+    private bool CanUseAudio()
+    {
+        if (_initState == InitState.Ready)
+        {
+            return true;
+        }
+
+        if (_initState == InitState.NotStarted)
+        {
+            AudioStartupRunner.EnsureCreated();
+        }
+
+        return false;
+    }
+}
+
+public class AudioStartupRunner : MonoBehaviour
+{
+    private static AudioStartupRunner _instance;
+
+    public static void EnsureCreated()
+    {
+        if (_instance != null)
+        {
+            return;
+        }
+
+        var gameObject = new GameObject(nameof(AudioStartupRunner));
+        DontDestroyOnLoad(gameObject);
+        _instance = gameObject.AddComponent<AudioStartupRunner>();
+    }
+
+    private void Start()
+    {
+        AudioManager.Instance.BeginInitialization();
+    }
+
+    private void Update()
+    {
+        var audioManager = AudioManager.Instance;
+        if (audioManager.TryCompleteInitialization())
+        {
+            Finish();
+            return;
+        }
+
+    }
+
+    private void Finish()
+    {
+        _instance = null;
+        Destroy(gameObject);
     }
 }

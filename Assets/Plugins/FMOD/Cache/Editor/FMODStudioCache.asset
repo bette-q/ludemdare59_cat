@@ -1,5 +1,25 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-8880885334780550943
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Master.bank
+  m_EditorClassIdentifier: 
+  Path: Assets/Plugins/Signal Fmod2/Build/Desktop/Master.bank
+  Name: Master
+  StudioPath: bank:/Master
+  lastModified: 639123092912009173
+  FileSizes:
+  - Name: Desktop
+    Value: 1757248
+  Exists: 1
 --- !u!114 &-8408837819050874310
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19,7 +39,7 @@ MonoBehaviour:
     Data3: -833637979
     Data4: 1972513557
   Banks:
-  - {fileID: 8914854723288555294}
+  - {fileID: -8880885334780550943}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -46,7 +66,7 @@ MonoBehaviour:
     Data3: -732302432
     Data4: -1921660961
   Banks:
-  - {fileID: 8914854723288555294}
+  - {fileID: -8880885334780550943}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -73,7 +93,7 @@ MonoBehaviour:
     Data3: 124660885
     Data4: -833398910
   Banks:
-  - {fileID: 8914854723288555294}
+  - {fileID: -8880885334780550943}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -100,7 +120,7 @@ MonoBehaviour:
     Data3: 95285681
     Data4: -415049099
   Banks:
-  - {fileID: 8914854723288555294}
+  - {fileID: -8880885334780550943}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -127,7 +147,7 @@ MonoBehaviour:
     Data3: -220683132
     Data4: 1817604515
   Banks:
-  - {fileID: 8914854723288555294}
+  - {fileID: -8880885334780550943}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -180,7 +200,7 @@ MonoBehaviour:
     Data3: 884880570
     Data4: -2014747149
   Banks:
-  - {fileID: 8914854723288555294}
+  - {fileID: -8880885334780550943}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -207,7 +227,7 @@ MonoBehaviour:
     Data3: -1698702932
     Data4: 2098205508
   Banks:
-  - {fileID: 8914854723288555294}
+  - {fileID: -8880885334780550943}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -228,8 +248,8 @@ MonoBehaviour:
   m_Name: FMODStudioCache
   m_EditorClassIdentifier: 
   EditorBanks:
-  - {fileID: 7781474887752950967}
-  - {fileID: 8914854723288555294}
+  - {fileID: 4796805185618075746}
+  - {fileID: -8880885334780550943}
   EditorEvents:
   - {fileID: 5694812195845988080}
   - {fileID: -7543907270248871213}
@@ -247,10 +267,10 @@ MonoBehaviour:
   - {fileID: -8408837819050874310}
   EditorParameters: []
   MasterBanks:
-  - {fileID: 8914854723288555294}
+  - {fileID: -8880885334780550943}
   StringsBanks:
-  - {fileID: 7781474887752950967}
-  cacheTime: 639123165477380453
+  - {fileID: 4796805185618075746}
+  cacheTime: 639123092912029175
   cacheVersion: 131635
 --- !u!114 &1453205824905257693
 MonoBehaviour:
@@ -271,7 +291,7 @@ MonoBehaviour:
     Data3: -692117100
     Data4: -1922373494
   Banks:
-  - {fileID: 8914854723288555294}
+  - {fileID: -8880885334780550943}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -298,7 +318,7 @@ MonoBehaviour:
     Data3: -777819229
     Data4: -2121241761
   Banks:
-  - {fileID: 8914854723288555294}
+  - {fileID: -8880885334780550943}
   IsStream: 1
   Is3D: 0
   IsOneShot: 0
@@ -326,7 +346,7 @@ MonoBehaviour:
     Data3: -284748638
     Data4: -1187330752
   Banks:
-  - {fileID: 8914854723288555294}
+  - {fileID: -8880885334780550943}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -353,7 +373,7 @@ MonoBehaviour:
     Data3: -964529233
     Data4: 1668240553
   Banks:
-  - {fileID: 8914854723288555294}
+  - {fileID: -8880885334780550943}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -380,7 +400,7 @@ MonoBehaviour:
     Data3: 2126255802
     Data4: 1254147189
   Banks:
-  - {fileID: 8914854723288555294}
+  - {fileID: -8880885334780550943}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -388,6 +408,26 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 5259
+--- !u!114 &4796805185618075746
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Master.strings.bank
+  m_EditorClassIdentifier: 
+  Path: Assets/Plugins/Signal Fmod2/Build/Desktop/Master.strings.bank
+  Name: Master.strings
+  StudioPath: bank:/Master.strings
+  lastModified: 639123092912029175
+  FileSizes:
+  - Name: Desktop
+    Value: 1378
+  Exists: 1
 --- !u!114 &5142417074302803451
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -407,7 +447,7 @@ MonoBehaviour:
     Data3: 32095880
     Data4: 617866646
   Banks:
-  - {fileID: 8914854723288555294}
+  - {fileID: -8880885334780550943}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -434,7 +474,7 @@ MonoBehaviour:
     Data3: -441898870
     Data4: -1638475047
   Banks:
-  - {fileID: 8914854723288555294}
+  - {fileID: -8880885334780550943}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -442,43 +482,3 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 1687
---- !u!114 &7781474887752950967
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
-  m_Name: bank:/Master.strings.bank
-  m_EditorClassIdentifier: 
-  Path: Assets/Plugins/Signal Fmod1/Build/Desktop/Master.strings.bank
-  Name: Master.strings
-  StudioPath: bank:/Master.strings
-  lastModified: 639123165477380453
-  FileSizes:
-  - Name: Desktop
-    Value: 1378
-  Exists: 1
---- !u!114 &8914854723288555294
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
-  m_Name: bank:/Master.bank
-  m_EditorClassIdentifier: 
-  Path: Assets/Plugins/Signal Fmod1/Build/Desktop/Master.bank
-  Name: Master
-  StudioPath: bank:/Master
-  lastModified: 639123165477370422
-  FileSizes:
-  - Name: Desktop
-    Value: 1757248
-  Exists: 1
